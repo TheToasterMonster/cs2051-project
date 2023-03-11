@@ -2,6 +2,94 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{enumitem}
+\usepackage{hyperref}
+
+\title{CS 2051: Project Title}
+\author{Anthony Hong \\ Georgia Institute of Technology
+\and Yongyu Qiang \\ Georgia Institute of Technology
+\and Aravinth Venkatesh Natarajan \\ Georgia Institute of Technology}
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\section{Background}
+% This section should develop the basic definitions and
+% preliminary results required for the statement and proof of
+% your main result, including examples that help the reader to
+% develop intuition for the concepts presented. Start from scratch, remember your audience is other 2051 students.
+\begin{itemize}
+  \item Definition of $\pi(x)$, the number of primes $\le x$.
+  \item Euclid's proof that $\lim_{x \to \infty}\pi(x) = \infty$
+  \item Introduce the Riemann zeta function, $\zeta(s) = \sum_{n = 1}^{\infty}\frac{1}{n^s}$
+  \item Use the $\zeta(2)$ case and $\frac{\sin{x}}{x}$ Taylor series to show $\zeta(2) = \frac{\pi^2}{6}$
+  \item Use above idea to derive Euler product formula
+  \item Use Euler product formula with $\zeta(1)$ to get that $\sum_{p}\frac{1}{p} = \infty$, also showing the infinitude of primes
+  \item Notation for prime gaps: $g_n = p_{n + 1} - p_n$
+  \item A prime gap can be arbitrarily large: Consider $n! + 2, n! + 3, \dots, n! + n$
+  \item Are there infinite small prime gaps? Introduce twin prime conjecture
+  \item Move on to some other main topic?
+\end{itemize}
+
+
+\section{Main result}
+% In this section, you should state and prove your main result,
+% and provide some basic consequences and examples that help the
+% reader to understand it. You may want to change this section's
+% name to something more informative.
+A interesting problem is the rate of growth of prime gaps. $\pi(n)$ denotes the prime counting function, which counts the number of primes less than or equal to n. The Prime Number Theorem (PMT) states that $x / \ln(x)$ approximates $\pi(n)$. To be more precise, the PMT states: \[\lim_{x \to \infty} \frac{\pi(x)}{\lfloor \frac{x}{\ln(x)} \rfloor} = 1\] 
+This means, as x gets larger, $x / \ln(x)$ will get better as an approximation for $\pi(x)$. This also implies that the average size of the gaps between consecutive primes up until $x$ asymptotically approaches $\ln(x)$. So for a random number $n$ in the interval $[x, x + kx]$ for large $x$ and fixed $k$, the probability that $n$ is prime is approximately $1 / x \approx 1 / n$.
+
+Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes", accurately models the distribution of P. 
+
+% Perhaps add summary of proof for this result
+According to this heuristic, we have the resulting claim, which is known as Cram\'er's conjecture:
+\[\limsup_{n \to \infty} \frac{p_{n + 1} - p_n}{(\ln p_n)^2} = 1\]
+where $p_n$ denotes the n-th prime.
+
+(Some directions to take these ideas):
+\begin{itemize}
+  \item Problems with Cram\'er's naive model and ways we can improve it (with modern results)
+  \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
+\end{itemize}
+\section{Extension/application/generalisation}
+% You should change this section's name to something relevant to
+% your project (e.g. "Applications of the RSA encryption
+% algorithm" or "Linear Diophantine equations in $n$ unknowns"
+\begin{itemize}
+    \item Connections from Cram\'er's conjecture to the Riemann hypothesis
+    \item Other ways to use Cram\'er's technique of random modeling
+\end{itemize}
+
+
+\section{Preliminary Code and Illustrations}
+% Here should be some illustration of the concepts described above. Also place any code you used to generate the code (use the lstlisting package if this applies to you).
+
+
+\section{Reflection/Conclusion}
+% You should change this section's name to something relevant to
+% your project. This section allows you to reflect or conclude
+% the work you have done in your project and discuss future work
+% that could be done on the project (e.g. applications you tried
+% to make but couldn't find the time).
+
+
+\section{References}
+% Here you should acknowledge people whose help you are thankful
+% for (and why), and any sources such as books and websites that
+% you used when studying for the project.
+
+\href{http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956}{Terence Tao's Blog}
+
+ 
+\end{document}
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
 
 \title{CS 2051: Project Title}
 \author{Author 1 \\ Georgia Institute of Technology
