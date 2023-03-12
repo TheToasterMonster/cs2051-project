@@ -80,6 +80,27 @@ where $p_n$ denotes the n-th prime.
   \item Problems with Cram\'er's naive model and ways we can improve it (with modern results)
   \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
 \end{itemize}
+Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
+Bertrand's postulate states that for an integer i $>$ 1, there is at least one prime number p
+\[
+    i \leq n \leq 2i 
+\]
+The proof for it is as follows:\\
+We'll start by proving Lemma 1:\\
+\[
+    \frac{4^n}{2n} \leq {2n \choose n}
+\]
+\[
+    4^n = (1 + 1)^{2n} = \Sigma_{k = 0}^{2n} {2n \choose k} 
+\]
+Since, $2n \choose 0$ is 1 and $2n \choose 2n$ is 1, this is the same as
+\[
+    \equiv 2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k} 
+\]
+Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are 2n terms, 
+\[
+     (2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
+\]
 \section{Extension/application/generalisation}
 % You should change this section's name to something relevant to
 % your project (e.g. "Applications of the RSA encryption
