@@ -1,8 +1,9 @@
-\documentclass{article}
+\documentclass[12pt, letterpaper]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage[skip=5pt, indent=20pt]{parskip}
 
 \title{CS 2051: Project Title}
 \author{Anthony Hong \\ Georgia Institute of Technology
@@ -25,22 +26,46 @@
   \item Definition of $\pi(x)$, the number of primes $\le x$.
   \item Euclid's proof that $\lim_{x \to \infty}\pi(x) = \infty$
   \item Introduce the Riemann zeta function, $\zeta(s) = \sum_{n = 1}^{\infty}\frac{1}{n^s}$
-  \item Use the $\zeta(2)$ case and $\frac{\sin{x}}{x}$ Taylor series to show $\zeta(2) = \frac{\pi^2}{6}$
-  \item Use above idea to derive Euler product formula
-  \item Use Euler product formula with $\zeta(1)$ to get that $\sum_{p}\frac{1}{p} = \infty$, also showing the infinitude of primes
   \item Notation for prime gaps: $g_n = p_{n + 1} - p_n$
   \item A prime gap can be arbitrarily large: Consider $n! + 2, n! + 3, \dots, n! + n$
   \item Are there infinite small prime gaps? Introduce twin prime conjecture
   \item Move on to some other main topic?
 \end{itemize}
 
+(hook to be added here)
+
+A common result many students learn early on in number theory is about the
+infinitude of prime numbers. This fact is also known as Euclid's theorem,
+and we include a short summary of Euclid's original proof.
+
+\noindent
+\textbf{Euclid's Theorem.} \textit{The set of all prime numbers is larger
+in cardinality than any finite collection of prime numbers.}
+
+\noindent
+\textit{Proof.} Consider $p_1, p_2, \dots, p_n$, some arbitrary finite
+collection of
+prime numbers. Let $N = p_1p_2 \dots p_n$, and consider $P = N + 1$. $P$ is
+either prime or not prime.
+\newline\indent
+First, let $P$ be prime. Then, we have constructed a new prime number and
+we are done.
+\newline\indent
+Now, let $P$ not be prime. Let $g$ be a prime factor of $P$. We propose that
+$g \notin \{p_1, p_2, \dots, p_n\}$. To show this, suppose that
+$g \in \{p_1, p_2, \dots, p_n\}$. Then, since $p_1, p_2, \dots, p_n$ are all
+factors of $N$, we have $g | N$. $g | P$ and $g | N$, so
+we must also have $g | (P - N)$, i.e.\ $g | 1$. But $g > 1$ ($g$ is prime),
+so $g$ cannot possibly divide 1. Therefore,
+$g \notin \{p_1, p_2, \dots, p_n\}$, and we have found a new prime, as
+required. \hfill$\square$
 
 \section{Main result}
 % In this section, you should state and prove your main result,
 % and provide some basic consequences and examples that help the
 % reader to understand it. You may want to change this section's
 % name to something more informative.
-A interesting problem is the rate of growth of prime gaps. $\pi(n)$ denotes the prime counting function, which counts the number of primes less than or equal to n. The Prime Number Theorem (PMT) states that $x / \ln(x)$ approximates $\pi(n)$. To be more precise, the PMT states: \[\lim_{x \to \infty} \frac{\pi(x)}{\lfloor \frac{x}{\ln(x)} \rfloor} = 1\] 
+A interesting problem is the rate of growth of prime gaps. $\pi(n)$ denotes the prime counting function, which counts the number of primes less than or equal to n. The Prime Number Theorem (PMT) states that $x / \ln(x)$ approximates $\pi(n)$. To be more precise, the PMT states: \[\lim_{x \to \infty} \frac{\pi(x)}{\left\lfloor \frac{x}{\ln(x)} \right\rfloor} = 1\]
 This means, as x gets larger, $x / \ln(x)$ will get better as an approximation for $\pi(x)$. This also implies that the average size of the gaps between consecutive primes up until $x$ asymptotically approaches $\ln(x)$. So for a random number $n$ in the interval $[x, x + kx]$ for large $x$ and fixed $k$, the probability that $n$ is prime is approximately $1 / x \approx 1 / n$.
 
 Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes", accurately models the distribution of P. 
