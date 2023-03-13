@@ -80,6 +80,7 @@ where $p_n$ denotes the n-th prime.
   \item Problems with Cram\'er's naive model and ways we can improve it (with modern results)
   \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
 \end{itemize}
+
 Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
 Bertrand's postulate states that for an integer i $>$ 1, there is at least one prime number p
 \[
@@ -100,6 +101,48 @@ Since, $2n \choose 0$ is 1 and $2n \choose 2n$ is 1, this is the same as
 Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are 2n terms, 
 \[
      (2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
+\]
+Therefore, 
+\[
+    \frac{4^n}{2n} \leq {2n \choose n}
+\]
+Let's now prove Lemma 2:\\
+For a given prime p, let's define r as the greatest number for which $p^r | {2n \choose n}$. Lemma 2 is as follows, for such an r, 
+\[
+    p^r <= 2n
+\]
+Firstly, we have to introduce Legendre's Formula:\\
+Legendre's Formula states that for any prime number p, and any integer n, let's define the function $v_p(n)$ as the exponent of the largest power of p that divides n. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
+Legendre's Formula is:
+\[
+    v_{p}(n!) = \sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
+\]
+${2n \choose n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\F
+Finding the largest exponent of p, r, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of p, r, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$\\
+
+In this case, L = $\left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
+\[
+    v_{p}({2n \choose n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor} - 2\sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
+\]
+This is equivalent to:
+\[
+    v_{p}({2n \choose n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}
+\]
+Thinking intuitively, every term in $\sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}$ must either be 0 or 1.\\
+If ($\frac{2n}{p^i}$ mod 1) $\geq$ 0.5 then the term would be 1, otherwise the term is 0. Therefore, the maximum value of this function would be if all the terms were equal to 1. Since we are only dealing with positive numbers, and the exponent is a monotonic function if both numbers are positive numbers,
+\[
+    v_{p}({2n \choose n}) = r \leq L
+\]
+\[
+    \equiv r <= \log_{p}{2n}
+\]
+Therefore, it follows that
+\[
+    p^r <= p^{\log_{p}{2n}} = 2n
+\]
+We are able to prove our initial Lemma 2, 
+\[
+    p^r <= 2n
 \]
 \section{Extension/application/generalisation}
 % You should change this section's name to something relevant to
