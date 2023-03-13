@@ -3,13 +3,16 @@
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{pythonhighlight}
+\usepackage{graphicx}
 \usepackage[skip=5pt, indent=20pt]{parskip}
 
-\title{CS 2051: Project Title}
+\title{CS 2051: Patterns in Primes}
 \author{Anthony Hong \\ Georgia Institute of Technology
 \and Yongyu Qiang \\ Georgia Institute of Technology
 \and Aravinth Venkatesh Natarajan \\ Georgia Institute of Technology}
-\date{}
+\date{March 12th, 2023}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -157,6 +160,11 @@ We are able to prove our initial Lemma 2,
 \section{Preliminary Code and Illustrations}
 % Here should be some illustration of the concepts described above. Also place any code you used to generate the code (use the lstlisting package if this applies to you).
 
+Cram\'er's random model allows us to heuristically test properties of primes.
+In this example, we graphically compare the maximal prime gap of the model and the actual primes.
+
+\includegraphics[scale=0.7]{graph.png}
+\inputpython{example.py}{6}{40}
 
 \section{Reflection/Conclusion}
 % You should change this section's name to something relevant to
@@ -165,6 +173,7 @@ We are able to prove our initial Lemma 2,
 % that could be done on the project (e.g. applications you tried
 % to make but couldn't find the time).
 
+Under heuristic testing with variations of Cram\'er's model, we should be able to support strong statements such as Bertrand's postulate and Legendre's conjecture. However, comparing with the actual primes, it should be clear that Cram\'er's model is inaccurate. Further work would involve the creation and tuning of other random models, to more closely emulate prime distributions.
 
 \section{References}
 % Here you should acknowledge people whose help you are thankful
@@ -172,6 +181,7 @@ We are able to prove our initial Lemma 2,
 % you used when studying for the project.
 
 \href{http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956}{Terence Tao's Blog}
+\href{https://en.wikipedia.org/wiki/Prime_gap}{Wikipedia}
 
  
 \end{document}
