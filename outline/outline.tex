@@ -25,16 +25,6 @@
 % preliminary results required for the statement and proof of
 % your main result, including examples that help the reader to
 % develop intuition for the concepts presented. Start from scratch, remember your audience is other 2051 students.
-\begin{itemize}
-  \item Definition of $\pi(x)$, the number of primes $\le x$.
-  \item Euclid's proof that $\lim_{x \to \infty}\pi(x) = \infty$
-  \item Introduce the Riemann zeta function, $\zeta(s) = \sum_{n = 1}^{\infty}\frac{1}{n^s}$
-  \item Notation for prime gaps: $g_n = p_{n + 1} - p_n$
-  \item A prime gap can be arbitrarily large: Consider $n! + 2, n! + 3, \dots, n! + n$
-  \item Are there infinite small prime gaps? Introduce twin prime conjecture
-  \item Move on to some other main topic?
-\end{itemize}
-
 (hook to be added here)
 
 A common result many students learn early on in number theory is about the
@@ -63,7 +53,34 @@ so $g$ cannot possibly divide 1. Therefore,
 $g \notin \{p_1, p_2, \dots, p_n\}$, and we have found a new prime, as
 required. \hfill$\square$
 
-\section{Main result}
+A natural next step from here is to explore how prime numbers
+are distributed. An important result from the 1890s was the
+prime number theorem.
+
+\noindent
+\textbf{Definition.} $\pi(n)$ (move definition of $\pi(n)$ here)
+
+\noindent
+\textbf{Prime Number Theorem.} (move statement of PMT here)
+
+However, due to its reliance on tools from analysis, we'll
+forgo a proof of the prime number theorem in this paper.
+
+(Begin discussion of prime gaps)
+
+(Start with small prime gaps) \\
+(Give proof that finitely many odd prime gaps exist since one of
+$n$ and $n + k$ must be even for odd $k$) \\
+(Introduce Twin Prime Conjecture)
+
+(Discuss large prime gaps) \\
+(Give proof for arbitrarily large prime gaps using $n! + 2,
+n! + 3, \dots, n! + n$) \\
+(Talk about how the previous result is actually not nearly the
+best we can do, maybe give a pigeonhole principle argument
+about a better bound that grows faster)
+
+\section{Cram\'er's Random Model}
 % In this section, you should state and prove your main result,
 % and provide some basic consequences and examples that help the
 % reader to understand it. You may want to change this section's
@@ -84,6 +101,7 @@ where $p_n$ denotes the $n$-th prime.
   \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
 \end{itemize}
 
+\section{Bertrand's Postulate}
 Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
 Bertrand's postulate states that for an integer $i > 1$, there is at least one prime number $p$
 \[
@@ -146,8 +164,9 @@ We are able to prove our initial Lemma 2,
 \[
     p^r \le 2n
 \]
-% We will proceed to prove Lemma 3 and 4, which will, in combination prove Bertrand's Postulate
-\section{Extension/application/generalisation}
+(We will proceed to prove Lemma 3 and 4, which will, in combination prove Bertrand's Postulate)
+
+\section{Extending the Model}
 % You should change this section's name to something relevant to
 % your project (e.g. "Applications of the RSA encryption
 % algorithm" or "Linear Diophantine equations in $n$ unknowns"
@@ -166,7 +185,7 @@ In this example, we graphically compare the maximal prime gap of the model and t
 \includegraphics[scale=0.7]{graph.png}
 \inputpython{example.py}{6}{40}
 
-\section{Reflection/Conclusion}
+\section{Accuracy of the Model}
 % You should change this section's name to something relevant to
 % your project. This section allows you to reflect or conclude
 % the work you have done in your project and discuss future work
