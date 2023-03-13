@@ -68,7 +68,7 @@ required. \hfill$\square$
 % and provide some basic consequences and examples that help the
 % reader to understand it. You may want to change this section's
 % name to something more informative.
-A interesting problem is the rate of growth of prime gaps. $\pi(n)$ denotes the prime counting function, which counts the number of primes less than or equal to n. The Prime Number Theorem (PMT) states that $x / \ln(x)$ approximates $\pi(n)$. To be more precise, the PMT states: \[\lim_{x \to \infty} \frac{\pi(x)}{\left\lfloor \frac{x}{\ln(x)} \right\rfloor} = 1\]
+A interesting problem is the rate of growth of prime gaps. $\pi(n)$ denotes the prime counting function, which counts the number of primes less than or equal to $n$. The Prime Number Theorem (PMT) states that $x / \ln(x)$ approximates $\pi(n)$. To be more precise, the PMT states: \[\lim_{x \to \infty} \frac{\pi(x)}{\left\lfloor \frac{x}{\ln(x)} \right\rfloor} = 1\]
 This means, as x gets larger, $x / \ln(x)$ will get better as an approximation for $\pi(x)$. This also implies that the average size of the gaps between consecutive primes up until $x$ asymptotically approaches $\ln(x)$. So for a random number $n$ in the interval $[x, x + kx]$ for large $x$ and fixed $k$, the probability that $n$ is prime is approximately $1 / x \approx 1 / n$.
 
 Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes", accurately models the distribution of P. 
@@ -76,7 +76,7 @@ Cram\'er's random model uses this idea as a naive approach to emulate the distri
 % Perhaps add summary of proof for this result
 According to this heuristic, we have the resulting claim, which is known as Cram\'er's conjecture:
 \[\limsup_{n \to \infty} \frac{p_{n + 1} - p_n}{(\ln p_n)^2} = 1\]
-where $p_n$ denotes the n-th prime.
+where $p_n$ denotes the $n$-th prime.
 
 (Some directions to take these ideas):
 \begin{itemize}
@@ -85,7 +85,7 @@ where $p_n$ denotes the n-th prime.
 \end{itemize}
 
 Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
-Bertrand's postulate states that for an integer i $>$ 1, there is at least one prime number p
+Bertrand's postulate states that for an integer $i > 1$, there is at least one prime number $p$
 \[
     i \leq n \leq 2i 
 \]
@@ -95,35 +95,34 @@ We'll start by proving Lemma 1:\\
     \frac{4^n}{2n} \leq {2n \choose n}
 \]
 \[
-    4^n = (1 + 1)^{2n} = \Sigma_{k = 0}^{2n} {2n \choose k} 
+    4^n = (1 + 1)^{2n} = \sum{k = 0}^{2n} {2n \choose k} 
 \]
 Since, $2n \choose 0$ is 1 and $2n \choose 2n$ is 1, this is the same as
 \[
-    \equiv 2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k} 
+    \equiv 2 + \sum{k = 1}^{2n - 1} {2n \choose k} 
 \]
-Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are 2n terms, 
+Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are $2n$ terms, 
 \[
-     (2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
+     (2 + \sum{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
 \]
 Therefore, 
 \[
     \frac{4^n}{2n} \leq {2n \choose n}
 \]
 Let's now prove Lemma 2:\\
-For a given prime p, let's define r as the greatest number for which $p^r | {2n \choose n}$. Lemma 2 is as follows, for such an r, 
+For a given prime $p$, let's define $r$ as the greatest number for which $p^r | {2n \choose n}$. Lemma 2 is as follows, for such an r, 
 \[
-    p^r <= 2n
+    p^r \le 2n
 \]
 Firstly, we have to introduce Legendre's Formula:\\
-Legendre's Formula states that for any prime number p, and any integer n, let's define the function $v_p(n)$ as the exponent of the largest power of p that divides n. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
+Legendre's Formula states that for any prime number $p$, and any integer $n$, let's define the function $v_p(n)$ as the exponent of the largest power of $p$ that divides $n$. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
 Legendre's Formula is:
 \[
     v_{p}(n!) = \sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
 \]
-${2n \choose n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\F
-Finding the largest exponent of p, r, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of p, r, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$\\
+${2n \choose n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\ Finding the largest exponent of $p$, $r$, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of $p$, $r$, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$\\
 
-In this case, L = $\left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
+In this case, $L = \left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
 \[
     v_{p}({2n \choose n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor} - 2\sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
 \]
@@ -137,15 +136,15 @@ If ($\frac{2n}{p^i}$ mod 1) $\geq$ 0.5 then the term would be 1, otherwise the t
     v_{p}({2n \choose n}) = r \leq L
 \]
 \[
-    \equiv r <= \log_{p}{2n}
+    \equiv r \le \log_{p}{2n}
 \]
 Therefore, it follows that
 \[
-    p^r <= p^{\log_{p}{2n}} = 2n
+    p^r \le p^{\log_{p}{2n}} = 2n
 \]
 We are able to prove our initial Lemma 2, 
 \[
-    p^r <= 2n
+    p^r \le 2n
 \]
 \section{Extension/application/generalisation}
 % You should change this section's name to something relevant to
@@ -180,8 +179,10 @@ Under heuristic testing with variations of Cram\'er's model, we should be able t
 % for (and why), and any sources such as books and websites that
 % you used when studying for the project.
 
-\href{http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956}{Terence Tao's Blog}
-\href{https://en.wikipedia.org/wiki/Prime_gap}{Wikipedia}
+\begin{itemize}
+    \item \href{http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956}{Terence Tao's Blog}
+    \item \href{https://en.wikipedia.org/wiki/Prime_gap}{Wikipedia}
+\end{itemize}
 
  
 \end{document}
