@@ -73,27 +73,27 @@ A common result many students learn early on in number theory is about the
 infinitude of prime numbers. This fact is also known as Euclid's theorem,
 and we include a short summary of Euclid's original proof.
 
-\noindent
+\medskip\noindent
 \textbf{Euclid's Theorem.} \textit{The set of all prime numbers is larger
 in cardinality than any finite collection of prime numbers.}
 
-\noindent
-\textit{Proof.} Consider $p_1, p_2, \dots, p_n$, some arbitrary finite
+\smallskip\noindent
+\textit{Proof.} Consider \[\{p_1, p_2, \dots, p_n\},\] some arbitrary finite
 collection of
-prime numbers. Let $N = p_1p_2 \dots p_n$, and consider $P = N + 1$. $P$ is
+prime numbers. Let \[N = p_1p_2 \dots p_n,\] and consider $P = N + 1$. $P$ is
 either prime or not prime.
-\newline\indent
+
 First, let $P$ be prime. Then, we have constructed a new prime number and
 we are done.
-\newline\indent
+
 Now, let $P$ not be prime. Let $g$ be a prime factor of $P$. We propose that
-$g \notin \{p_1, p_2, \dots, p_n\}$. To show this, suppose that
+$g \notin \{p_1, p_2, \dots, p_n\}$. To show this, suppose for contradiction that
 $g \in \{p_1, p_2, \dots, p_n\}$. Then, since $p_1, p_2, \dots, p_n$ are all
 factors of $N$, we have $g | N$. $g | P$ and $g | N$, so
-we must also have $g | (P - N)$, i.e.\ $g | 1$. But $g > 1$ ($g$ is prime),
+we must also have $g | P - N$, i.e.\ $g | 1$. But $g > 1$ ($g$ is prime),
 so $g$ cannot possibly divide 1. Therefore,
 $g \notin \{p_1, p_2, \dots, p_n\}$, and we have found a new prime, as
-required. \hfill$\square$
+required. \hfill$\square$\medskip
 
 A natural next step from here is to explore how prime numbers
 are distributed. For now, we'll focus particularly on prime
@@ -103,38 +103,39 @@ restrictions on what prime gaps can look like. First,
 we can see that prime gaps can be odd only finitely many
 times.
 
-\noindent
+\medskip\noindent
 \textbf{Lemma.} \textit{There exist only finitely many odd prime
 gaps.}
 
-\noindent
+\smallskip\noindent
 \textit{Proof.} Notice that all primes $p > 2$ are odd. Then
 $p_{n+1} - p_n$ is even for all $n > 1$, so there exists
 only finitely many $n$ such that $p_{n+1} - p_n$ is odd.
-\hfill$\square$
+\hfill$\square$\medskip
 
 In fact, $n = 1$ yields the only odd prime gap, namely
 $(p_1, p_2) = (2, 3)$ with difference 1. On the other
 hand, we have a much more promising observation for large
 prime gaps, namely that we can make them arbitrarily large.
 
-\noindent
+\medskip\noindent
 \textbf{Lemma.} \textit{There exist prime gaps of arbitrarily
 large size.}
 
-\noindent
+\smallskip\noindent
 \textit{Proof.} We'll show that given $n \in \mathbb{Z}^+$, we
 can construct an interval of size at least $n - 1$ of only
 composite numbers. Then the first primes immediately before
 and after this interval will have gap of at least $n$.
-\newline\indent
+
 Let $n \in \mathbb{Z}^+$. Now consider the interval
-$[n! + 2, n! + n]$. By definition of the
+\[[n! + 2, n! + n].\] By definition of the
 factorial, we have $i|n!$ for all $i \in [2, n]$. We also
 trivially have $i|i$. Therefore, we have $i|(n! + i)$, and
 so $i$ is a divisor of $n! + i$ for all $i \in [2, n]$.
 Then all of $[n! + 2, n! + n]$ is composite, and this
-interval has size $n - 1$, so we're done. \hfill$\square$
+interval has size $n - 1$, as desired.
+\hfill$\square$\medskip
 
 Although this result is nice, we soon realize that it does
 not give us a very strong bound, in the sense that it is
@@ -153,8 +154,9 @@ do better.
 For that, we'll need better tools. Let us first define
 the prime counting function $\pi(n)$.
 
-\noindent
+\smallskip\noindent
 \textbf{Definition.} $\pi(n) := \text{number of primes} \le n.$
+\smallskip
 
 Now we can introduce the prime number theorem,
 which characterizes the growth of $\pi(n)$ as $n$ gets large.
@@ -162,13 +164,30 @@ Note that we will use this result without proof in this paper,
 as even relatively simpler proofs rely on tools from
 analysis.
 
-\noindent
+\smallskip\noindent
 \textbf{Prime Number Theorem (PMT).}
 $\frac{n}{\ln(n)}$ asymptotically approximates $\pi(n)$.
 Put more formally,
-$\displaystyle \lim_{n \to \infty} \frac{\pi(n)}{\frac{n}{\ln(n)}} = 1$.
+\[\displaystyle \lim_{n \to \infty} \frac{\pi(n)}{\frac{n}{\ln(n)}} = 1.\]
+\smallskip
 
-(add more stuff here)
+From this result, we can quickly argue by the pigeonhole principle
+that there should exist a prime gap of size at least $\ln(n)$ in the
+interval $[2, n]$. If we take buckets to be the $\frac{n}{\ln(n)}$
+prime numbers less than or equal to $n$ and our pigeons to be
+the integers in $[2, n]$, then by the pigeonhole principle, at least one
+prime number will correspond to $\ln(n)$ or more integers, making
+a gap of size at least $\ln(n)$. Note that this pigeonhole argument already gives
+an asymptotically better bound for large gaps than our previous result,
+albeit just barely, as we only now only need to go to $e^x$ for a gap
+of size $x$ rather than $x!$.
+
+We can also apply the same argument in reverse to get a small gap of size
+at most $\ln(n)$, but getting any better bounds generally requires the
+use of analysis. In an effort to avoid that, we can instead explore
+the Cram\'er random model, which considers randomness as a method
+to approximate $\pi(n)$.
+
 
 \section{Cram\'er's Random Model}
 % In this section, you should state and prove your main result,
@@ -240,7 +259,7 @@ Therefore,
 Let's now prove Lemma 2:\\
 For a given prime p, let's define r as the greatest number for which $p^r | {2n \choose n}$. Lemma 2 is as follows, for such an r, 
 \[
-    p^r <= 2n
+    p^r \le 2n
 \]
 Firstly, we have to introduce Legendre's Formula:\\
 Legendre's Formula states that for any prime number p, and any integer n, let's define the function $v_p(n)$ as the exponent of the largest power of p that divides n. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
