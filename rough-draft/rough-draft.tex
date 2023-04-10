@@ -242,15 +242,15 @@ We'll start by proving Lemma 1:\\
     \frac{4^n}{2n} \leq {2n \choose n}
 \]
 \[
-    4^n = (1 + 1)^{2n} = \Sigma_{k = 0}^{2n} {2n \choose k} 
+    4^n = (1 + 1)^{2n} = \sum_{k = 0}^{2n} {2n \choose k} 
 \]
 Since, $2n \choose 0$ is 1 and $2n \choose 2n$ is 1, this is the same as
 \[
-    \equiv 2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k} 
+    \equiv 2 + \sum_{k = 1}^{2n - 1} {2n \choose k} 
 \]
 Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are 2n terms, 
 \[
-     (2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
+     (2 + \sum_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
 \]
 Therefore, 
 \[
@@ -328,7 +328,7 @@ Since the Inductive Hypothesis is true for smaller odd numbers,
 \]
 Now, let's take a detour, let's look at a binomial expansion
 \[
-    (1 + 1)^{2m + 1} = \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
+    (1 + 1)^{2m + 1} = \sum^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
 \]
 Necessarily 
 \[
@@ -336,10 +336,10 @@ Necessarily
 \]
 Since you can notice that all the primes on the left will divide ${2m + 1} \choose {m}$
 \[
-    {2m + 1} \choose {m} \leq \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
+    {2m + 1} \choose {m} \leq \sum^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
 \]
 \[
-    \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}} = 2^{2m + 1}
+    \sum^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}} = 2^{2m + 1}
 \]
 Also, since 
 \[
