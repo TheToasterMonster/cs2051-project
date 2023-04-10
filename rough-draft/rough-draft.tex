@@ -1,31 +1,73 @@
-\documentclass[12pt, letterpaper]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm}
-\usepackage{enumitem}
-\usepackage{hyperref}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
 \usepackage{listings}
 \usepackage{pythonhighlight}
-\usepackage{graphicx}
-\usepackage[skip=5pt, indent=20pt]{parskip}
-
-\title{CS 2051: Patterns in Primes}
-\author{Anthony Hong \\ Georgia Institute of Technology
-\and Yongyu Qiang \\ Georgia Institute of Technology
-\and Aravinth Venkatesh Natarajan \\ Georgia Institute of Technology}
-\date{March 12th, 2023}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
+
+\title{Patterns in Primes\\
+{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+should not be used}
+\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Yongyu Qiang}
+\IEEEauthorblockA{\textit{Georgia Institute of Technology}} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Aravinth Venkatesh Natarajan}
+\IEEEauthorblockA{\textit{Georgia Institute of Technology}} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Anthony Hong}
+\IEEEauthorblockA{\textit{Georgia Institute of Technology}} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+}
 
 \maketitle
 
+\begin{abstract}
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+\end{IEEEkeywords}
+
+\section{Introduction}
+
 \section{Background}
-% This section should develop the basic definitions and
-% preliminary results required for the statement and proof of
-% your main result, including examples that help the reader to
-% develop intuition for the concepts presented. Start from scratch, remember your audience is other 2051 students.
-(hook to be added here)
 
 A common result many students learn early on in number theory is about the
 infinitude of prime numbers. This fact is also known as Euclid's theorem,
@@ -171,70 +213,137 @@ where $p_n$ denotes the $n$-th prime.
 
 \section{Bertrand's Postulate}
 Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
-Bertrand's postulate states that for an integer $i > 1$, there is at least one prime number $p$
+Bertrand's postulate states that for an integer i $>$ 1, there is at least one prime number p
 \[
     i \leq n \leq 2i 
 \]
 The proof for it is as follows:\\
-We'll start by proving Lemma 1:
+We'll start by proving Lemma 1:\\
 \[
-  \frac{4^n}{2n} \leq \binom{2n}{n}
+    \frac{4^n}{2n} \leq {2n \choose n}
 \]
 \[
-    4^n = (1 + 1)^{2n} = \sum{k = 0}^{2n} \binom{2n}{k} 
+    4^n = (1 + 1)^{2n} = \Sigma_{k = 0}^{2n} {2n \choose k} 
 \]
-Since, $\binom{2n}{0}$ is 1 and $\binom{2n}{2n}$ is 1, this is the same as
+Since, $2n \choose 0$ is 1 and $2n \choose 2n$ is 1, this is the same as
 \[
-    \equiv 2 + \sum{k = 1}^{2n - 1} \binom{2n}{k} 
+    \equiv 2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k} 
 \]
-Since the largest term in this summation is $\binom{2n}{n}$ (since for $\binom{n}{k}$, $k = n/2$ will give the largest term) and there are $2n$ terms, 
+Since the largest term in this summation is $2n \choose n$ (since for $n \choose k$, $k = n/2$ will give the largest term) and there are 2n terms, 
 \[
-     (2 + \sum{k = 1}^{2n - 1} \binom{2n}{k}) \leq (2n * \binom{2n}{n})
+     (2 + \Sigma_{k = 1}^{2n - 1} {2n \choose k}) \leq (2n * {2n \choose n})
 \]
 Therefore, 
 \[
-    \frac{4^n}{2n} \leq \binom{2n}{n}
+    \frac{4^n}{2n} \leq {2n \choose n}
 \]
 Let's now prove Lemma 2:\\
-For a given prime $p$, let's define $r$ as the greatest number for which $p^r | \binom{2n}{n}$. Lemma 2 is as follows, for such an r, 
+For a given prime p, let's define r as the greatest number for which $p^r | {2n \choose n}$. Lemma 2 is as follows, for such an r, 
 \[
-    p^r \le 2n
+    p^r <= 2n
 \]
 Firstly, we have to introduce Legendre's Formula:\\
-Legendre's Formula states that for any prime number $p$, and any integer $n$, let's define the function $v_p(n)$ as the exponent of the largest power of $p$ that divides $n$. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
+Legendre's Formula states that for any prime number p, and any integer n, let's define the function $v_p(n)$ as the exponent of the largest power of p that divides n. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
 Legendre's Formula is:
 \[
     v_{p}(n!) = \sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
 \]
-$\binom{2n}{n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\ Finding the largest exponent of $p$, $r$, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of $p$, $r$, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$
+${2n \choose n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\F
+Finding the largest exponent of p, r, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of p, r, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$\\
 
-In this case, $L = \left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
+In this case, L = $\left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
 \[
-    v_{p}(\binom{2n}{n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor} - 2\sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
+    v_{p}({2n \choose n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor} - 2\sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
 \]
 This is equivalent to:
 \[
-    v_{p}(\binom{2n}{n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}
+    v_{p}({2n \choose n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}
 \]
 Thinking intuitively, every term in $\sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}$ must either be 0 or 1.\\
 If ($\frac{2n}{p^i}$ mod 1) $\geq$ 0.5 then the term would be 1, otherwise the term is 0. Therefore, the maximum value of this function would be if all the terms were equal to 1. Since we are only dealing with positive numbers, and the exponent is a monotonic function if both numbers are positive numbers,
 \[
-    v_{p}(\binom{2n}{n}) = r \leq L
+    v_{p}({2n \choose n}) = r \leq L
 \]
 \[
-    \equiv r \le \log_{p}{2n}
+    \equiv r <= \log_{p}{2n}
 \]
 Therefore, it follows that
 \[
-    p^r \le p^{\log_{p}{2n}} = 2n
+    p^r <= p^{\log_{p}{2n}} = 2n
 \]
 We are able to prove our initial Lemma 2, 
 \[
-    p^r \le 2n
+    p^r <= 2n
 \]
-(We will proceed to prove Lemma 3 and 4, which will, in combination prove Bertrand's Postulate)
+Now, we move on to proving Lemma 3:
+Let's place some bounds on p for the lemma we're going to prove. If 
+\[
+    \frac{2n}{3} < p \leq n, then R(n, p) = 0
+\]
+\[
+    {{2n} \choose {n}} = \frac{(2n)!}{{n!}^2}
+\]
+Therefore, there are 2 factors of p in the numerator, p and 2p\\
+In the denominator, there are 2 factors of p, each in n!\\
+The conditions mean that 3p is too large to be in the numerator\\
+Due to this, the factors of p in the numerator and denominator cancel out so the greatest power of p that divides this number is 1, i.e. $p^0$, giving R = 0\\
+With this, we prove Lemma 3\\
+\textbf{Moving on to Lemma 4:}\\
+Let's define the primorial function:
+\[
+    x\# = \Pi_{p \leq x} x
+\]
+I.e., x\# is the product of all primes less than or equal to x\\
+Lemma 4 states that for x $\geq$ 3,  x\# $\leq$ $4^x$\\
+We proceed by induction:\\
+This claim is easily verifiable for small odd numbers. Try one yourself!\\
+For even numbers, x\# = (x - 1)\# as for x $\geq$ 3, there are no even prime numbers\\
+Therefore, it is also bounded by x\# $\leq$ $4^x$\\
+Let's take a larger odd number, n = 2m + 1\\
+\[
+    \Pi_{p \leq n}p = \Pi_{p\leq m + 1} * \Pi_{m + 2 \leq p \leq 2m + 1}
+\]
+Since the Inductive Hypothesis is true for smaller odd numbers,
+\[
+    \Pi_{p\leq m + 1} = 4^{m + 1}
+\]
+Now, let's take a detour, let's look at a binomial expansion
+\[
+    (1 + 1)^{2m + 1} = \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
+\]
+Necessarily 
+\[
+    \Pi_{m + 2 \leq p \leq 2m + 1} \leq {{2m + 1} \choose m}
+\]
+Since you can notice that all the primes on the left will divide ${2m + 1} \choose {m}$
+\[
+    {2m + 1} \choose {m} \leq \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}}
+\]
+\[
+    \Sigma^{2m + 1}_{k = 0}{{2m + 1} \choose k}1^{2m + 1 - k}{1^{k}} = 2^{2m + 1}
+\]
+Also, since 
+\[
+    {{2m + 1} \choose {m}} = {{2m + 1} \choose {m + 1}}
+\]
+We can divide our bound by 2 since those numbers will be repeated\\
+Therefore,
+\[
+    \Pi_{m + 2 \leq p \leq 2m + 1} \leq 2^{2m}
+\]
+Consequently,
+\[
+     \Pi_{p \leq n}p = 4^{m + 1} * 2^{2m}
+\]
+Which is equivalent to
+\[
+    \Pi_{p \leq n}p \leq 4^{n}
+\]
+Now, we are finally ready to prove Bertrand's Postulate:
+% \[
 
-\section{Extending the Model}
+% \]
+\section{Extension/application/generalisation}
 % You should change this section's name to something relevant to
 % your project (e.g. "Applications of the RSA encryption
 % algorithm" or "Linear Diophantine equations in $n$ unknowns"
@@ -249,9 +358,8 @@ We are able to prove our initial Lemma 2,
 
 Cram\'er's random model allows us to heuristically test properties of primes.
 In this example, we graphically compare the maximal prime gap of the model and the actual primes.
-
-\includegraphics[scale=0.7]{graph.png}
-\inputpython{example.py}{6}{40}
+\includegraphics[scale=0.5]{graph.png}
+\inputpython{example.py}{6}{37}
 
 \section{Accuracy of the Model}
 % You should change this section's name to something relevant to
@@ -262,15 +370,13 @@ In this example, we graphically compare the maximal prime gap of the model and t
 
 Under heuristic testing with variations of Cram\'er's model, we should be able to support strong statements such as Bertrand's postulate and Legendre's conjecture. However, comparing with the actual primes, it should be clear that Cram\'er's model is inaccurate. Further work would involve the creation and tuning of other random models, to more closely emulate prime distributions.
 
-\section{References}
-% Here you should acknowledge people whose help you are thankful
-% for (and why), and any sources such as books and websites that
-% you used when studying for the project.
 
-\begin{itemize}
-    \item \href{http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956}{Terence Tao's Blog}
-    \item \href{https://en.wikipedia.org/wiki/Prime_gap}{Wikipedia}
-\end{itemize}
+\begin{thebibliography}{00}
+\bibitem{b1} Terence Tao's Blog
+% http://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional/#more-7956
+\bibitem{b2} Wikipedia Article on Prime Gaps
+% https://en.wikipedia.org/wiki/Prime_gap
+\end{thebibliography}
+\vspace{12pt}
 
- 
 \end{document}

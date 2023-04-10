@@ -11,7 +11,6 @@ def sieve(n):
             for j in range(i * i, n + 1, i):
                 prime[j] = False
         i += 1
-    
     last_prime = -1
     gaps = []
     for i in range(n + 1):
@@ -22,7 +21,6 @@ def sieve(n):
                 else:
                     gaps.append(max(gaps[-1], i - last_prime))
             last_prime = i
-
     return gaps
 
 def cramer_model(n):
@@ -36,9 +34,7 @@ def cramer_model(n):
             else:
                 gaps.append(max(gaps[-1], i - last_prime))
             last_prime = i
-    
     return gaps
-    
 
 def main():
     real = sieve(1000000);
