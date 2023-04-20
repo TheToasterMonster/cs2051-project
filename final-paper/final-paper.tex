@@ -9,10 +9,13 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{pythonhighlight}
+\usepackage{float}
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
+\hfuzz=500pt
 \title{Patterns in Primes}
 \author{\IEEEauthorblockN{1\textsuperscript{st} Yongyu Qiang}
 \IEEEauthorblockA{\textit{Georgia Institute of Technology}}
@@ -29,9 +32,6 @@
 \begin{abstract}
 
 \end{abstract}
-
-\begin{IEEEkeywords}
-\end{IEEEkeywords}
 
 \section{Introduction}
 The distribution of the set of prime numbers is a topic long studied by mathematicians. We will explore some important results, with a focus on prime gaps. We will also cover Cramer's random model, a heuristic used to study distributions of seemingly random sets, such as the prime numbers. 
@@ -154,11 +154,11 @@ of size $x$ rather than $x!$.
 We can also apply the same argument in reverse to get a small gap of size
 at most $\ln(n)$, but getting any better bounds generally requires the
 use of analysis. In an effort to avoid that, we can instead explore
-the Cram\'er random model, which considers randomness as a method
+the Cramer random model, which considers randomness as a method
 to approximate $\pi(n)$.
 
 
-\section{Cram\'er's Random Model}
+\section{Cramer's Random Model}
 % In this section, you should state and prove your main result,
 % and provide some basic consequences and examples that help the
 % reader to understand it. You may want to change this section's
@@ -186,6 +186,74 @@ $\epsilon > 0$, meaning that roughly the first half of the
 digits of
 $\text{Li}(n)$ will be correct,
 but that is outside the scope of this paper.)
+
+Equipped with this prime density, we arrive at
+Cramer's random model. In 1936, Harald Cramer, a Swedish mathematician
+proposed a probabilistic perspective for studying
+the distribution of primes. From first inspection,
+the primes don't seem to be distributed according to
+any clear pattern; they seem to be rather randomly
+scattered across the number line. So why don't
+we treat the primes as exactly that, a random distribution?
+In Cramer's original model, we assign each natural number
+$x > 2$ a probability $\delta(x) = 1/\ln(x)$ of being prime.
+The hope is that this random distribution will be within
+some reasonable margin of approximating the real prime
+number distribution. If we can achieve this, then not only
+do we have a computationally efficient way of
+estimating the prime distribution, but we can also bring
+in existing tools from probability theory to help. So
+let's give it a shot and see how reasonable this idea is.
+
+We'll first explore large prime gaps and how accurate the
+random model predicts them to be compared to the real
+prime gaps. To do this, we computed the largest prime gap
+less than or equal to a natural number $n$ for
+$100 \le n \le 1.66 \times 10^5$ for both distributions.
+In the random model, we assigned each natural number $x \le n$
+with its probability $x/\ln(x)$ of being prime. We then sorted
+these ``primes'' and calculated the largest gap between
+any consecutive two elements. For the actual distribution, we
+simply calculated the real largest prime gap. To mitigate the wild
+varation due to the random nature of the model, we also repeated
+each $x$ in the random model for a total of 100 trials and
+plotted their average value.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{random-plot1.pdf}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$}
+\end{figure}
+
+Well\ldots that's not quite exactly what we hoped it would be,
+but it's also not all that bad! We can see that for rather
+small values of $x$, the two graphs line up rather nicely,
+and the two graphs approach each other again around $n = 30{,}000$
+(it also seems that the 100 trials did its job fairly well in reducing
+random variation). The two graphs do have their differences:
+the actual prime gap graph is a little too jagged for our
+(relatively) continuous-looking graph to model accurately. But it
+still seems that they behave similarly in a way; one could imagine that
+a curve of best fit through the actual graph would look rather similar
+to our model. It's not out of the world either to believe that the next
+jump in the prime gap will once again approach that of
+our model for larger $n$.
+
+So not all hope is lost quite yet! We still have some more ideas.
+One first observation is that in the previous iteration of the model,
+we restricted our ``fake primes'' to being natural numbers. Of course,
+it perhaps makes sense to do so as primes are natural numbers, but
+why should we restrict ourselves in that way? What if we take $x \in \mathbb{R}$
+instead of $x \in \mathbb{N}$? After all, differences, logarithms, and
+division are all just as well-defined on $\mathbb{R}$, so there's theoretically
+nothing preventing us from doing this.
+
+(note to self, explore above idea of using real numbers, and then
+go into trying out other probability distributions like a Gaussian, maybe)
+
+\vspace{2mm}
+\hrule
+\vspace{2mm}
 
 
 Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes," accurately models the distribution of P. 
