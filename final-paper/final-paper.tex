@@ -172,7 +172,7 @@ $\delta(n)$:
 \[\delta(n) = \frac{\pi(n)}{n} = \frac{\frac{n}{\ln{n}}}{n} = \frac{1}{\ln(n)}.\]
 So for a random number $x$ in the interval $[n, n + kn]$ for
 large $n$ and fixed $k$, the probability that $x$ is prime is
-approximately $1 / n \approx 1 / x$. (As a side note, this
+approximately $1 / \ln(n) \approx 1 / \ln(x)$. (As a side note, this
 density $\delta(n)$ is also the rationale behind an alternate
 approximation for $\pi(n)$ with the logarithmic integral
 $\text{Li}(n)$ as
@@ -255,6 +255,12 @@ go into trying out other probability distributions like a Gaussian, maybe)
 \hrule
 \vspace{2mm}
 
+\section{Improvements to Cramer's Model}
+
+Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is fundamentally flawed. The set of prime numbers is a non-random set. Primes have properties that make them deterministic. Although they exhibit pseudorandom behavior, they are not completely random. Hence, why mathematicans are obsessed with finding possible patterns. Cramer's model will generate a set of numbers that is completely random, considering only the independent probabilty $1 \ \ln(n)$. An improved version of the model would incorporate more characteristics of the actual set of prime numbers. Let's look at some of the more obvious improvements. 
+
+For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. This never occurs in actual primes, with the exception of $(2, 3)$. Thus, let's update the probabilities of the model. To preserve the distribution in accordance to the Prime Number Theorem, lets ''move" the probability of an even number $e$ being selected, to $e + 1$. Thus, suppose $n$ is an integer greater than 2. If $n$ is even, then its updated probability of being selected is 0. If $n$ is odd, then its probability is $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$. 
+(Add some models here)
 
 Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes," accurately models the distribution of P. 
 
@@ -417,7 +423,7 @@ Now, we are finally ready to prove Bertrand's Postulate:
 Cram\'er's random model allows us to heuristically test properties of primes.
 In this example, we graphically compare the maximal prime gap of the model and the actual primes.
 \includegraphics[scale=0.5]{graph.png}
-\inputpython{example.py}{6}{37}
+% \inputpython{../models/original_model.py}{6}{37}
 
 \section{Accuracy of the Model}
 % You should change this section's name to something relevant to
