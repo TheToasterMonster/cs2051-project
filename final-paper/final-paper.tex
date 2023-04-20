@@ -196,7 +196,9 @@ any clear pattern; they seem to be rather randomly
 scattered across the number line. So why don't
 we treat the primes as exactly that, a random distribution?
 In Cramer's original model, we assign each natural number
-$x > 2$ a probability $\delta(x) = 1/\ln(x)$ of being prime.
+$x > 2$ a probability
+\[p(x) = \frac{1}{\ln(x)}\]
+of being prime.
 The hope is that this random distribution will be within
 some reasonable margin of approximating the real prime
 number distribution. If we can achieve this, then not only
@@ -247,6 +249,40 @@ why should we restrict ourselves in that way? What if we take $x \in \mathbb{R}$
 instead of $x \in \mathbb{N}$? After all, differences, logarithms, and
 division are all just as well-defined on $\mathbb{R}$, so there's theoretically
 nothing preventing us from doing this.
+
+Obviously, when we deal with $x \in \mathbb{R}$, we can
+no longer assign discrete probabilities to each element,
+as there's an infinite number of them! Instead, we need
+to assign an actual density function like the $\delta(x)$
+mentioned earlier. But $\delta(x)$ poses some problems:
+for one, the integral
+\[\lim_{n \to \infty} \int_2^n \delta(x)\, dx = \infty\]
+doesn't converge (perhaps unsurprisingly, as there are
+indeed an infinite number of primes), so we can't hope to
+use it as a probability density without at least some
+modifications first. But for now, we can try something
+simpler.
+
+As our first step into using a continuous model, we'll
+use the simplest possible density function: the uniform
+distribution. For a closed interval $[a, b]$, we can
+define the following uniform density function
+\[f(x) = \begin{cases}\frac{1}{b-a}, & a \le x \le b \\ 0, & \text{otherwise}.\end{cases}\]
+Then, since the prime number theorem predicts roughly
+$n/\ln(n)$ primes less than or equal to $n$, we can
+randomly sample $n/\ln(n)$ numbers uniformly from the
+interval $[2, n]$ to get an approximate distribution of
+primes. So we repeat the previous experiment, with the
+only change being the switch to this new method of
+generating our ``fake primes.''
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{random-plot-with-reals.pdf}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+\end{figure}
+
+Wow, that's actually even worse than what we had before.
 
 (note to self, explore above idea of using real numbers, and then
 go into trying out other probability distributions like a Gaussian, maybe)
