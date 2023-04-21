@@ -282,7 +282,14 @@ generating our ``fake primes.''
   \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
 \end{figure}
 
-Wow, that's actually even worse than what we had before.
+Wow, that's even worse than what we had before, which is actually rather surprising.
+We know that the prime number distribution is generally skewed to the right, meaning
+primes occur less frequently for larger $n$. This would suggest larger gaps for the
+than a uniform distribution would predict, but that's clearly not the case here. So,
+what went wrong? We have to recall that the $n/\ln(n)$ value
+from the prime number theorem is only an approximation. In fact, despite being
+asymptotically correct, it actually has a rather larger margin of error. We
+can immediately see this by plotting $\pi(n)$ and $n/\ln(n)$ on a graph.
 
 (note to self, explore above idea of using real numbers, and then
 go into trying out other probability distributions like a Gaussian, maybe)
