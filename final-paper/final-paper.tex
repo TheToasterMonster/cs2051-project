@@ -315,24 +315,32 @@ For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime.
 
 The fundamental idea of Cramer's model is quite powerful. For any seemingly random set of numbers, we can emulate its density by using a random distribution. An interesting point of extension is, can we use this idea for similar sets of numbers other than the primes?
 
-We introduce a lesser known sequence of numbers known as the Ulam numbers, named after Stanislaw Ulam, who first popularized the sequence in 1964. The Ulam sequence starts with $U_1 = 1$, $U_2 = 2$. Then for $n > 2$, $U_n$ is the smallest integer greater than $U_{n - 1}$ that can be written as a unique sum of two distinct earlier terms. The first twenty Ulam numbers are:
+We introduce a lesser known sequence of numbers known as the Ulam numbers, named after Stanislaw Ulam, who first popularized the sequence in 1964. Let $U_n$ denote the $n-th$ Ulam number. The sequence starts with $U_1 = 1$, $U_2 = 2$. Then for $n > 2$, $U_n$ is the smallest integer greater than $U_{n - 1}$ that can be written as a unique sum of two distinct earlier terms. The first twenty Ulam numbers are:
 \[1, 2, 3, 4, 6, 8, 11, 13, 16, 18, 26, 28, 36, 38, 47, 48, 53, 57, 62, 69\]
 
 % Psuedorandom similarity to the primes
-Similar to the prime numbers, the Ulam numbers are a deterministic set. They are fixed by a clear procedure. However, it is once again a seemingly random sequence. There are no equations to describe where Ulam numbers will show up on the integer number line. Let's run a program to see the distribution of Ulam numbers across a larger sample. Finding Ulam numbers effiently is a difficult task in itself, but we can do it naively. 
+Similar to the prime numbers, the Ulam numbers are a deterministic set found by a clear procedure. Once again, there are no equations to describe where Ulam numbers will show up on the integer number line. Let's run a program to see the distribution of Ulam numbers across a larger sample. Finding Ulam numbers effiently is a difficult task in itself, but we can do it naively. 
 % https://vixra.org/pdf/1508.0085v2.pdf
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{../images/Figure_3.png}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+\end{figure}
 (Insert Ulam Distribution here)
 
 % https://oeis.org/A002858
 
-As can be seen by the distribution, Ulam numbers look quite linear. It has been shown that the first 3 million terms are close to the line $y = 13.51x$. Interestingly, Ulam himself conjectured that the natural density of Ulam numbers is 0. Meaning the distribution of Ulam numbers eventually converges to 0 as we go to infinity. But, as it turns out, calculations up to around a billion indicate that this is probably not the case. The observed density actually converges to around 0.074. 
+As can be seen by the distribution, Ulam numbers look quite linear. It has been shown that the first 3 million terms are close to the line $y = 13.51x$. Interestingly, Ulam himself conjectured that the natural density of Ulam numbers is 0. This means Ulam believed the distribution of Ulam numbers eventually converges to 0. But, as it turns out, calculations up to around a billion indicate that this is probably not the case. The observed density actually converges to around 0.074. 
 
 % Revise this:
-Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. We define a random variable such that
-\[P(X = 1) = 0.074\]
+Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. For each natural number $x >= 1$, we define the independent probability that it is an ``fake" Ulam number to be $p(x) = 0.074$.
 
-(Show model vs actual Ulam numbers)
+(Show model vs actual Ulam numbers) (Maybe also line y = 13.51x)
+
+(Section on analysis)
+
+
 
 (Section on how the model trivializes analagous conjectures)
 % https://chance.dartmouth.edu/chance_news/for_chance_news/Riemann/cramer.pdf
