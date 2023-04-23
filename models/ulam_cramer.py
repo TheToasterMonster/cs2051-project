@@ -65,8 +65,8 @@ def main():
     # plt.plot(np.array(fake), label = "P'")
     plt.xlabel('x')
     plt.ylabel('U_x')
-    plt.title('Distribution of the Ulam numbers')
     plt.legend()
+    plt.savefig("../images/Ulam_cramer.pdf", format="pdf", bbox_inches="tight")
     plt.show()
 
 if __name__ == "__main__":
