@@ -327,7 +327,6 @@ Similar to the prime numbers, the Ulam numbers are a deterministic set found by 
   \includegraphics[width=\linewidth,keepaspectratio]{../images/Figure_3.png}
   \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
 \end{figure}
-(Insert Ulam Distribution here)
 
 % https://oeis.org/A002858
 
@@ -338,8 +337,21 @@ Using this density and the fact that Ulam numbers look to be quite linear, let's
 
 (Show model vs actual Ulam numbers) (Maybe also line y = 13.51x)
 
-(Section on analysis)
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{../images/fake_ulam.png}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+\end{figure}
 
+The Ulam numbers appears to be well below our estimated model. But, that is largely due to our relatively small range of $x$. As we look further down the Ulam sequence, the density 0.074 will become a better approximation. 
+
+Let's consider an analag to the Twin Prime Conjecture, but for Ulam numbers. The Twin Prime Conjecture states that there are an infinite number of pairs of primes ($p$, $p + 2$) that exist. If we were to bring over this idea to the Ulam sequence, we could theorize that there exists an infinite number of Ulam number pairs $(x, x + 2)$ in the Ulam sequence. Because Ulam numbers can be odd or even, we could change the conjecture to consider pairs $(x, x + 1)$. However, this is not backed heuristically, as there have only been 4 such pairs in the first billion Ulam numbers. So, we will go with the slightly looser conjecture. 
+
+Proving this conjecture for the Ulam numbers perhaps does not have any clear consequences. But the point in this exercise is to show the power, and perhaps the flaws, of Cramer's random modeling technique for these types of sequence. So under the assumption that our random model accurately models the distribution of Ulam numbers, how can one heuristically see that our conjecture is true.
+
+(Apply random model to informally prove our analog twin prime conjecture)
+
+As it stands, applying a random mode l
 
 
 (Section on how the model trivializes analagous conjectures)

@@ -3,25 +3,27 @@ import numpy as np
 import random
 
 # Precalculates sieve for all numbers <= n
-def sieve(n):
-    prime = [True for i in range(n + 1)]
-    i = 2
-    while i * i <= n:
-        if prime[i]:
-            for j in range(i * i, n + 1, i):
-                prime[j] = False
-        i += 1
-    last_prime = -1
-    gaps = []
-    for i in range(n + 1):
-        if prime[i]:
-            if last_prime != -1:
-                if len(gaps) == 0:
-                    gaps.append(i - last_prime)
-                else:
-                    gaps.append(max(gaps[-1], i - last_prime))
-            last_prime = i
-    return gaps
+def ulam_model(n):
+    nums = []
+    for i in range(1, n):
+        if random.random() <= 0.074:
+            nums.append(i)
+    print(nums)
+    return nums
+
+# def ulam(n):
+#     nums = [1, 2]
+#     i = 3
+#     while len(nums) < n:
+#         count = 0
+#         for j in range(len(nums) - 1):
+#             for k in range(j + 1, len(nums)):
+#                 if nums[j] + nums[k] == i:
+#                     count += 1
+#         if count == 1:
+#             nums.append(i)
+#         i += 1
+#     return nums
 
 
 def ulam(n):
@@ -47,8 +49,9 @@ def ulam(n):
     return query
 
 def main():
+    fake = ulam_model(10000)
     real = []
-    for i in range(10000):
+    for i in range(1, len(fake)):
         real.append(ulam(i))
     line = []
     sum = 0
@@ -56,7 +59,8 @@ def main():
         sum += 13.51
         line.append(sum)
     #fake = cramer_model(1000000);
-    plt.plot(np.array(real), label = "Ulam numbers")
+    plt.plot(np.array(fake), label = "Fake Ulam numbers")
+    plt.plot(np.array(real), label = "Actual Ulam numbers")
     plt.plot(line, label = "y = 13.51x")
     # plt.plot(np.array(fake), label = "P'")
     plt.xlabel('x')
