@@ -298,24 +298,12 @@ go into trying out other probability distributions like a Gaussian, maybe)
 \hrule
 \vspace{2mm}
 
-\section{Improvements to Cramer's Model}
-
-Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is fundamentally flawed. The set of prime numbers is a non-random set. Primes have properties that make them deterministic. Although they exhibit pseudorandom behavior, they are not completely random. Hence, why mathematicans are obsessed with finding possible patterns. Cramer's model will generate a set of numbers that is completely random, considering only the independent probabilty $1 \ \ln(n)$. An improved version of the model would incorporate more characteristics of the actual set of prime numbers. Let's look at some of the more obvious improvements. 
-
-% Should probably revise this section with more accurate improvements,
-% http://projecteuclid.org/euclid.facm/1229619660
-For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. This never occurs in actual primes, with the exception of $(2, 3)$. Thus, let's update the probabilities of the model. To preserve the distribution in accordance to the Prime Number Theorem, lets ``move" the probability of an even number $e$ being selected, to $e + 1$. Thus, suppose $n$ is an integer greater than 2. If $n$ is even, then its updated probability of being selected is 0. If $n$ is odd, then its probability is $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$.
-
-% Maybe talk about prime triplets?
-% https://math.stackexchange.com/questions/1653536/show-that-we-cannot-have-a-prime-triplet-of-the-form-p-p-2-p-4-for 
-
-(Add models highlighting differences?)
 
 \section{Other Applications of Cramer's Model}
 
 The fundamental idea of Cramer's model is quite powerful. For any seemingly random set of numbers, we can emulate its density by using a random distribution. An interesting point of extension is, can we use this idea for similar sets of numbers other than the primes?
 
-We introduce a lesser known sequence of numbers known as the Ulam numbers, named after Stanislaw Ulam, who first popularized the sequence in 1964. Let $U_n$ denote the $n-th$ Ulam number. The sequence starts with $U_1 = 1$, $U_2 = 2$. Then for $n > 2$, $U_n$ is the smallest integer greater than $U_{n - 1}$ that can be written as a unique sum of two distinct earlier terms. The first twenty Ulam numbers are:
+We introduce a lesser known sequence of numbers known as the Ulam numbers, named after Stanislaw Ulam, who first popularized the sequence in 1964. Let $U_n$ denote the n-th Ulam number. The sequence starts with $U_1 = 1$, $U_2 = 2$. Then for $n > 2$, $U_n$ is the smallest integer greater than $U_{n - 1}$ that can be written as a unique sum of two distinct earlier terms. The first twenty Ulam numbers are:
 \[1, 2, 3, 4, 6, 8, 11, 13, 16, 18, 26, 28, 36, 38, 47, 48, 53, 57, 62, 69\]
 
 % Psuedorandom similarity to the primes
@@ -325,7 +313,7 @@ Similar to the prime numbers, the Ulam numbers are a deterministic set found by 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{../images/Figure_3.png}
-  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+  \caption{Distribution of the first few hundred Ulam numbers}
 \end{figure}
 
 % https://oeis.org/A002858
@@ -333,33 +321,55 @@ Similar to the prime numbers, the Ulam numbers are a deterministic set found by 
 As can be seen by the distribution, Ulam numbers look quite linear. It has been shown that the first 3 million terms are close to the line $y = 13.51x$. Interestingly, Ulam himself conjectured that the natural density of Ulam numbers is 0. This means Ulam believed the distribution of Ulam numbers eventually converges to 0. But, as it turns out, calculations up to around a billion indicate that this is probably not the case. The observed density actually converges to around 0.074. 
 
 % Revise this:
-Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. For each natural number $x >= 1$, we define the independent probability that it is an ``fake" Ulam number to be $p(x) = 0.074$.
+Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. For each natural number $x >= 1$, we define the independent probability that it is an ``fake" Ulam number to be \[p(x) = 0.074\]
 
-(Show model vs actual Ulam numbers) (Maybe also line y = 13.51x)
+An example run of this model gives us something that looks very similar to the line mentioned earlier.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{../images/fake_ulam.png}
-  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+  \caption{Distribution of random model vs the actual Ulam numbers}
 \end{figure}
 
-The Ulam numbers appears to be well below our estimated model. But, that is largely due to our relatively small range of $x$. As we look further down the Ulam sequence, the density 0.074 will become a better approximation. 
+The Ulam numbers appears to be well below our estimated model. But, that is largely due to our relatively small range of $x$. As we look further down the Ulam sequence, the density 0.074 will become a better approximation.
 
-Let's consider an analag to the Twin Prime Conjecture, but for Ulam numbers. The Twin Prime Conjecture states that there are an infinite number of pairs of primes ($p$, $p + 2$) that exist. If we were to bring over this idea to the Ulam sequence, we could theorize that there exists an infinite number of Ulam number pairs $(x, x + 2)$ in the Ulam sequence. Because Ulam numbers can be odd or even, we could change the conjecture to consider pairs $(x, x + 1)$. However, this is not backed heuristically, as there have only been 4 such pairs in the first billion Ulam numbers. So, we will go with the slightly looser conjecture. 
+Throughout this paper, one natural question that may arise is: why do we care about a heuristic such as Cramer's model? To answer that question, let's consider an analag to the Twin Prime Conjecture, but for Ulam numbers. The Twin Prime Conjecture states that there are an infinite number of prime pairs of the form ($p$, $p + 2$). Bringing over this idea to the Ulam sequence, we might speculate that there exists an infinite number of Ulam number pairs $(x, x + 2)$ in the Ulam sequence. (Because Ulam numbers can be odd or even, we could change the conjecture to consider pairs $(x, x + 1)$. However, this is not backed heuristically, as there have only been 4 such pairs in the first billion Ulam numbers. So, we will go with the slightly looser conjecture). 
 
-Proving this conjecture for the Ulam numbers perhaps does not have any clear consequences. But the point in this exercise is to show the power, and perhaps the flaws, of Cramer's random modeling technique for these types of sequence. So under the assumption that our random model accurately models the distribution of Ulam numbers, how can one heuristically see that our conjecture is true.
+Proving this conjecture for the Ulam numbers does not have any clear consequences. But the point in this exercise is to show the power, and perhaps the flaws, of Cramer's random modeling technique for these types of sequence. So under the assumption that our random model accurately models the distribution of Ulam numbers, we will show that our conjecture is true.
 
-(Apply random model to informally prove our analog twin prime conjecture)
+\medskip\noindent
+\textbf{Proposition.} \textit{Under the assumption of accuracy of Cramer's model for Ulam numbers, there exists an infinite number of Ulam pairs of the form ($x, x + 2$)} 
 
-As it stands, applying a random mode l
+\smallskip\noindent
+\textit{Proof.} Let $U$ denote the set of Ulam numbers. According to our model, the independent probability of a natural number being a Ulam number is
+    \[p(x) = 0.074\]
+Thus, the probability that natural numbers $x$ and $x + 2$ are both Ulam numbers is
+    \[P(x \in U) \cdot P(x + 2 \in U) = 0.074^2\]
+Then the average number of ``Ulam pairs'' below some integer $n$ is
+\[\sum_{x = 2}^{n}0.074^2\]
+From here, it is easy to see that
+\[\lim_{n\rightarrow \infty} \sum_{x = 2}^{n}(0.074)^2 = \infty\]
+Thus, there exists an infinite number of Ulam pairs.
+\hfill$\square$\medskip
 
-
-(Section on how the model trivializes analagous conjectures)
+As you can see, this proof is very simple. Using the idea of Cramer's random model, we can give very quick answers to conjectures like our analagous Twin Prime Conjecture. In fact, going back to prime numbers, an assumption of a modified version of Cramer's model being true can be used to give affirmative answers to all four of Landau's problems (which includes the Goldbach conjecture, Twin Prime conjecture, Legendre's conjecture, and the question of near-square primes).
+% https://en.wikipedia.org/wiki/Landau%27s_problems
 % https://chance.dartmouth.edu/chance_news/for_chance_news/Riemann/cramer.pdf
-% Maybe elaborate on the importance of independence of random variables and how that trivializes conjectures
-In fact, we can apply Cramer's model to any sequence with significant natural density. This tool gives us a way to confidently guess the asymptotic statistics of seemingly random sets of numbers. Proving these results rigorously is very difficult, but by random modeling, we can get the next best thing, which is a statistics backed guess. 
 
+The key assumption in all cases is the accuracy of the model. Our assumption that the density of Ulam numbers converges to the constant 0.074 is only statistically shown, not rigorously proven like the prime number theorem. But, the main idea still stands. With any sequence of significant natural density, Cramer's model gives us a way to confidently guess its asymptotic statistics. Proving these results rigorously is far more difficult, but by random modeling, we can get the next best thing, which is a statistics backed guess. 
 
+\section{Improvements to Cramer's Model}
+
+Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is fundamentally flawed. The set of prime numbers is a non-random set. Primes have properties that make them deterministic. Although they exhibit pseudorandom behavior, they are not completely random. Hence, why mathematicans are obsessed with finding possible patterns. Cramer's model consists of a sequence of random variables, all with the independent probabilty $1 / \ln(n)$. This assumption of independence is what mainly makes proving long unsolved conjectures relatively trivial. But just thinking intuitively, independence between every one if these variables makes no sense. By the very definition of prime numbers, if some number $x$ is chosen to be part of our random model, shouldn't this reduce the probability that $2x$, $3x$, $4x$,$\dots$ are part of the model to 0? But trying to make all such considerations just returns us to the original complexity of the primes. We don't want that, of course. But we do want to make some modifications to Cramer's model in order to improve the model's accuracy, while still maintaining its main assumptions. Let's look at some ideas for obvious improvements. 
+
+% Should probably revise this section with more accurate improvements,
+% http://projecteuclid.org/euclid.facm/1229619660
+For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. This never occurs in actual primes, with the exception of $(2, 3)$. Thus, let's update the probabilities of the model. To preserve the distribution in accordance to the Prime Number Theorem, lets ``move" the probability of an even number $e$ being selected, to $e + 1$. Thus, suppose $n$ is an integer greater than 2. If $n$ is even, then its updated probability of being selected is 0. If $n$ is odd, then its probability is $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$.
+
+% Maybe talk about prime triplets?
+% https://math.stackexchange.com/questions/1653536/show-that-we-cannot-have-a-prime-triplet-of-the-form-p-p-2-p-4-for 
+
+(Add models highlighting differences?)
 Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes," accurately models the distribution of P. 
 
 % Perhaps add summary of proof for this result
