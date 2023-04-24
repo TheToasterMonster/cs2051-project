@@ -356,11 +356,14 @@ we take for granted as $O(1)$ like multiplication also
 start to slow down for very large integers),
 so we can imagine that
 using this method to find very large primes soon becomes
-too inefficient. A much better method is to
+too inefficient.
+Randomized primality tests can also help, but they suffer from
+A much better method is to
+other issues (see Appendix A for more).
 use a sieve (the sieve of Erastosthenes, for example),
 which finds many primes at once by removing multiples of
 known primes. Sieve algorithms can bring time complexity
-down to near $O(n)$, which is indeed already pretty good. 
+down to near $O(n)$, which is indeed already pretty good.
 
 But notice that this $n$ captures the value of the largest
 integer we want to test. That means as soon as we want
