@@ -6,12 +6,12 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
 \usepackage{listings}
 \usepackage{pythonhighlight}
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{verbatim}
+\usepackage{xcolor}
 
 \pagestyle{plain}
 
@@ -46,7 +46,7 @@ and we include a short summary of Euclid's original proof.
 
 \medskip\noindent
 \textbf{Euclid's Theorem.} \textit{The set of all prime numbers is larger
-in cardinality than any finite collection of prime numbers.}
+in cardinality than any finite collection of prime numbers. \cite{b8}}
 
 \smallskip\noindent
 \textit{Proof.} Consider \[\{p_1, p_2, \dots, p_n\},\] some arbitrary finite
@@ -184,7 +184,7 @@ $\pi(n)$ than the traditional prime number theorem. In
 fact, if we assume the
 Riemann hypothesis, we have that the error of $\mathrm{Li}(n)$ from
 $\pi(n)$ is bounded by $O(n^{1/2 + \epsilon})$ for any
-$\epsilon > 0$, meaning that roughly the first half of the
+$\epsilon > 0$ \cite{b7}, meaning that roughly the first half of the
 digits of
 $\mathrm{Li}(n)$ will be correct,
 but that is outside the scope of this paper.)
@@ -274,7 +274,15 @@ Then, since the prime number theorem predicts roughly
 $n/\ln(n)$ primes less than or equal to $n$, we can
 randomly sample $n/\ln(n)$ numbers uniformly from the
 interval $[2, n]$ to get an approximate distribution of
-primes. So we repeat the previous experiment, with the
+primes (Note that we are assuming we can draw these
+samples independently and with replacement. In a
+continuous setting, the replacement assumption is
+actually rather reasonable since the probability
+of getting a single real value twice is essentially zero.
+The independence assumption is a little less accurate,
+but we'll assume it regardless for simplicity.).
+So we repeat the
+previous experiment, with the
 only change being the switch to this new method of
 generating our ``fake primes.''
 
@@ -394,7 +402,7 @@ the impact of running many trials. In the Julia
 programming language, this is as simple as
 prefixing a for loop with the built-in
 \verb|@threads| macro. In our experience, running
-multithreaded on only 4 threads yielded over a
+multithreaded on only four threads yielded over a
 two-times speedup, which is already very impressive
 for such little modification to our original code.
 
@@ -525,7 +533,7 @@ The other reason this works is because the only of roots of $1$ $\mod n$ are $1$
     (x + 1)(x - 1) \equiv 0 \mod n
 \]
 \[
-    x = 1\,\,\, \text{or} -1 \mod n
+    x = 1 \text{ or }  {-1} \mod n
 \]
 With this, we now have the tools to construct the \textit{Miller-Rabin test}. The variable a tells us if the number in question is composite or not. Of course, there are still composite numbers that can fool the Miller-Rabin test. However, there isn't a set family of numbers for this and it changes depending on the value of a and n. If a tells us that n is a composite, we call it a witness. If it misinforms us, we call it a liar. If we pass all the tests for Miller-Rabin, we classify $n$ as a strongly probable prime. It has been proven that the number of liars is at most a \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{$1/4$} of the values of $a$. In reality the number of liars is of course much lower for many numbers but we use this number to model the worst case. That means, depending on the number of times we run Miller-Rabin, let's say $k$ times, our probability of n being composite is $0.25^k$. To give an example of what this means, if we were using the fermat primality test, we would have little idea of how accurate our results were and would most likely be more computationally expensive to run to get similarly accurate results.
 
@@ -547,20 +555,21 @@ With this graphic, you can see that in general, the sieve is the worst way of fi
 
 In this graph, you can see that for the most part, they take similar amounts of time with the Fermat test taking less time since it's a weaker check.
 
-\subsection{Code}
-add code here
-
 \begin{thebibliography}{00}
-    \bibitem{b1} \href{https://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional.}{Tao, Terence (2019), 254A, Supplement 4: Probabilistic models and heuristics for the primes (optional).}
-    \bibitem{b2} \href{https://oeis.org/A002858}{OEIS Foundation Inc. (2023), The Ulam numbers, Entry A002858 in The On-Line Encyclopedia of Integer Sequences}
-    \bibitem{b3} \href{https://arxiv.org/abs/1910.14674}{Maynard, James (2019), On the Twin Prime Conjecture}
-    \bibitem{b4} \href{https://chance.dartmouth.edu/chance_news/for_chance_news/Riemann/cramer.pdf}{Andrew Granville (1995), Harold Cramer and the Distribution of Prime Numbers}
+    \bibitem{b1} \href{https://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional.}{Tao, Terence (2019), \textit{UCLA MATH 254A, Supplement 4: Probabilistic models and heuristics for the primes (optional).}}
+    \bibitem{b2} \href{https://oeis.org/A002858}{OEIS Foundation Inc. (2023), \textit{The Ulam numbers, Entry A002858 in The On-Line Encyclopedia of Integer Sequences}}
+    \bibitem{b3} \href{https://arxiv.org/abs/1910.14674}{Maynard, James (2019), \textit{On the Twin Prime Conjecture}}
+    \bibitem{b4} \href{https://chance.dartmouth.edu/chance_news/for_chance_news/Riemann/cramer.pdf}{Andrew Granville (1995), \textit{Harold Cramer and the Distribution of Prime Numbers}}
     \bibitem{b5} 
-    \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{Michael O. Rabin, Probabilistic algorithm for testing primality}
+    \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{Michael O. Rabin, \textit{Probabilistic algorithm for testing primality}}
     \bibitem{b6}
-    \href{https://doi.org/10.1145%2F800116.803773}{Gary L. Miller, Riemann's Hypothesis and Tests for Primality}
+    \href{https://doi.org/10.1145%2F800116.803773}{Gary L. Miller, \textit{Riemann's Hypothesis and Tests for Primality}}
     \bibitem{b7}
-    \href{https://doi.org/10.4007%2Fannals.2004.160.781}{Agrawal, Manindra; Kayal, Neeraj; Saxena, Nitin , Primes is in p}
+    \href{https://doi.org/10.4007%2Fannals.2004.160.781}{Agrawal, Manindra; Kayal, Neeraj; Saxena, Nitin, \textit{Primes is in P}}
+    \bibitem{b8}
+    \href{https://sites.math.rutgers.edu/~alexk/2022S572/index.html}{Kontorovich, Alex (2022), \textit{Rutgers MAT 572: Analytic Number Theory}}
+    \bibitem{b9}
+    \href{https://mathcs.clarku.edu/~djoyce/java/elements/elements.html}{Euclid, \textit{Elements}}
 \end{thebibliography}
 \vspace{12pt}
 
