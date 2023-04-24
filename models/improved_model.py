@@ -28,7 +28,7 @@ def improved_model(p, l, phi):
     return primes
 
 def main():
-    upper_bound = 10000
+    upper_bound = 1000
     real = list(sympy.primerange(upper_bound))
     original = original_model(upper_bound, len(real))
     k = math.floor(np.log(len(real)))
