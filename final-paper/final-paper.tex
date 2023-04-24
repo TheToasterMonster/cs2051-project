@@ -355,13 +355,15 @@ As you can see, this proof is very simple. Using the idea of Cramer's random mod
 
 The key assumption in all cases is the accuracy of the model. Our assumption that the density of Ulam numbers converges to the constant 0.074 is only statistically shown, not rigorously proven like the prime number theorem. But, the main idea still stands. With any sequence of significant natural density, Cramer's model gives us a way to confidently guess its asymptotic statistics. Proving these results rigorously is far more difficult, but by random modeling, we can get the next best thing, which is a statistics backed guess. 
 
-\section{Improvements to Cramer's Model}
+\section{Improvements to Cramer's Original Model}
 
-Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is flawed. Cramer's model can be thought of as a sequence of random variables, all with the independent probabilty $1 / \ln(n)$. This assumption of independence is what mainly makes proving long unsolved conjectures relatively trivial. But just thinking intuitively, independence between every one if these variables makes no sense. For example, if some number $x$ is chosen to be part of our random model, shouldn't we reduce the probability that $2x$, $3x$, $4x$,$\dots$ are part of the model to 0? If we made this adjustment for our model, wouldn't it make it more accurate? However, then the question arises, where do we then ``redirect'' those probabilites? Its true that trying to make all such considerations just returns us to the original complexity of the primes. We don't want that, of course. But we do want to improve the model's accuracy, while still maintaining its main assumptions. Let's look at some ideas for improvements. 
+Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is flawed. Cramer's model can be thought of as a sequence of random variables, all with the independent probabilty $1 / \ln(n)$. This assumption of independence is what mainly makes proving long unsolved conjectures relatively trivial. But just thinking intuitively, independence between every one if these variables doesn't make sense when we consider what we are trying to model, the prime numbers. For example, if some number $x$ is chosen to be part of our random model, shouldn't the probability that $2x$, $3x$, $4x$,$\dots$ are part of the model then be reduced to 0? Such an adjustment might increase the accuracy of our model. However, then the question arises, where do we then ``redirect'' those probabilites? Its true that trying to make all such considerations returns us to the original complexity of the primes. So how can we improve the model's accuracy, while still maintaining its main assumptions. Let's look at some ideas for improvements. 
 
 % Should probably revise this section with more accurate improvements,
 % http://projecteuclid.org/euclid.facm/1229619660
 For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. In fact with the original Cramer model, one can make a similar probabilistic argument to the one we made with Ulam sequence, to show that there exists an infinite number of prime pairs of the form $(p, p + 1)$. This is of course, a very bad prediction. Thus, how can we try to make Cramer's model more precise here. We can't just set the probability of every even number to 0 without other adjustments. This would essentially half the density backed by the Prime Number Theorem. One idea is to ``move" the probability of an even number $e$ being selected, to $e + 1$. So for each odd number (except for 3), its updated probability would be $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$.
+
+After this adjustment, our model would look a little more like the actual primes. What is the modification we just did? We accounted for the actual prime number $p = 2$, and distributed probabilities only amongst numbers that are coprime to 2. This is a powerful idea, and we can extend it. Consider an additional parameter to our Cramer model $m$, ideally much smaller than $n$ (e.g. around $\log(n)$\cite{b1} works well). Let $p_1, \dots, p_k$ denote the set of actual primes smaller than or equal to $m$. Then instead of considering all natural numbers to be part of our model, we will consider only numbers coprime to the product $p_1p_2\cdots p_k$, i.e. not a multiple of any of the primes less or equal to $m$. Essentially, we maintain the core idea of random distribution, while incorporating some structure from a prefix of the prime number sequence. Let's see what an example distribution looks like with this modification.
 % Finish this section, extend this idea to numbers not just 2 coprime
 % Model takes in another parameter w, which satisfies this
 
@@ -369,18 +371,18 @@ For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime.
 % https://math.stackexchange.com/questions/1653536/show-that-we-cannot-have-a-prime-triplet-of-the-form-p-p-2-p-4-for 
 
 (Add models highlighting differences?)
-Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes," accurately models the distribution of P. 
-
-% Perhaps add summary of proof for this result
-According to this heuristic, we have the resulting claim, which is known as Cram\'er's conjecture:
-\[\limsup_{n \to \infty} \frac{p_{n + 1} - p_n}{(\ln p_n)^2} = 1\]
-where $p_n$ denotes the $n$-th prime.
-
-(Additional sections for these ideas (TBD)):
-\begin{itemize}
-  \item Problems with Cram\'er's naive model and ways we can improve it (with modern results)
-  \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
-\end{itemize}
+% Cram\'er's random model uses this idea as a naive approach to emulate the distribution of prime numbers. Consider a random subset of the natural numbers, where the independent probability that a number $n$ is chosen is $1 / \ln(n)$. Let's call this random set $P'$, where $P$ is the set of actual prime numbers. Cram\'er conjectured that $P'$, which consists of our ``fake primes," accurately models the distribution of P. 
+% 
+% % Perhaps add summary of proof for this result
+% According to this heuristic, we have the resulting claim, which is known as Cram\'er's conjecture:
+% \[\limsup_{n \to \infty} \frac{p_{n + 1} - p_n}{(\ln p_n)^2} = 1\]
+% where $p_n$ denotes the $n$-th prime.
+% 
+% (Additional sections for these ideas (TBD)):
+% \begin{itemize}
+%   \item Problems with Cram\'er's naive model and ways we can improve it (with modern results)
+%   \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
+% \end{itemize}
 
 \section{Bertrand's Postulate}
 Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
