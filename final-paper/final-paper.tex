@@ -35,11 +35,8 @@
 \thispagestyle{plain}
 
 \begin{abstract}
-
-\end{abstract}
-
-\section{Introduction}
 The distribution of the set of prime numbers is a topic long studied by mathematicians. We will explore some important results, with a focus on prime gaps. We will also cover Cramer's random model, a heuristic used to study distributions of seemingly random sets, such as the prime numbers. 
+\end{abstract}
 
 \section{Background}
 
@@ -319,6 +316,19 @@ first model.
   \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$ (uniformly random using $\mathrm{Li}(n)$).}
 \end{figure}
 
+And this is more or less what we wanted. We recovered
+most of the accuracy of our first model, but using a
+continuous distribution instead of a discrete one. This
+opens up the room for many more possibilities: we could
+try using a normal distribution with various parameters,
+an exponential distribution, or any other continuous
+distribution that we can study with statistics. The
+reasoning behind doing such a thing isn't very
+well-motivated, however.
+It is very unclear why the prime number distribution would
+be normally or exponentially distributed, but it could
+still be a topic for further exploration.
+
 \section{Applications}
 So, why might we care about a random model of the primes?
 One motivation is that random models are generally much
@@ -388,6 +398,25 @@ multithreaded on only 4 threads yielded over a
 two-times speedup, which is already very impressive
 for such little modification to our original code.
 
+\section{Improvements in the Discrete Case}
+
+Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is flawed. Cramer's model can be thought of as a sequence of random variables, all with the independent probabilty $1 / \ln(n)$. This assumption of independence is what mainly makes proving long unsolved conjectures relatively trivial. But just thinking intuitively, independence between every one if these variables doesn't make sense when we consider what we are trying to model, the prime numbers. For example, if some number $x$ is chosen to be part of our random model, shouldn't the probability that $2x$, $3x$, $4x$,$\dots$ are part of the model then be reduced to 0? Such an adjustment might increase the accuracy of our model. However, then the question arises, where do we then ``redirect'' those probabilites? Its true that trying to make all such considerations returns us to the original complexity of the primes. So how can we improve the model's accuracy, while still maintaining its main assumptions. Let's look at some ideas for improvements. 
+
+% Should probably revise this section with more accurate improvements,
+% http://projecteuclid.org/euclid.facm/1229619660
+For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. In fact with the original Cramer model, one can make a similar probabilistic argument to the one we made with Ulam sequence, to show that there exists an infinite number of prime pairs of the form $(p, p + 1)$. This is of course, a very bad prediction. Thus, how can we try to make Cramer's model more precise here. We can't just set the probability of every even number to 0 without other adjustments. This would essentially half the density backed by the Prime Number Theorem. One idea is to ``move" the probability of an even number $e$ being selected, to $e + 1$. So for each odd number (except for 3), its updated probability would be $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$.
+
+After this adjustment, our model would look a little more like the actual primes. What is the modification we just did? We accounted for the actual prime number $p = 2$, and distributed probabilities only amongst numbers that are coprime to 2. This is a powerful idea, and we can extend it. Consider an additional parameter to our Cramer model $m$, ideally much smaller than $n$ (e.g. around $\log(n)$\cite{b1} works well). Let $p_1, \dots, p_k$ denote the set of actual primes smaller than or equal to $m$. Then instead of considering all natural numbers to be part of our model, we will consider only numbers coprime to the product $P = p_1p_2\cdots p_k$, i.e. not a multiple of any of the primes less or equal to $m$. How do we know the new probability that this number will be chosen? Recall that the Euler totient function $\phi(n)$ counts the positive integers up to n relatively prime to $n$. Then in our case, there will be approximately $\frac{\phi(P)}{P}$ fewer candidates that can be chosen for our model. Then this makes the chance a valid number coprime to $P$ is selected that much more likely. Thus, for some $x$ coprime to $P$, it has probability of $p(x) = \frac{\phi(P)}{Plog(n)}$ of being chosen. Essentially, the idea is that we maintain the core idea of random distribution, while incorporating some structure from a prefix of the prime number sequence. Let's see what an example distribution looks like with this modification.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{../images/Improvement.pdf}
+  \caption{Distribution of Cramer's model vs modified Cramer's model vs the actual prime numbers}
+\end{figure}
+
+This makes our model look much more accurate, especially for smaller intervals near the beginning of the prime distibution. We can actually extend this concept further to make our model more versatile by allowing our parameter $m$ dynamically increase with respect to $n$, albeit at a much slower pace. With this new modification of Cramer's model, we can achieve tighter bounds of estimation for prediction of statents like the Twin Prime Conjecture \cite{b1}. 
+
+
 \section{Extending Cramer's Model}
 
 The fundamental idea of Cramer's model is quite powerful. For any seemingly random set of numbers, we can emulate its density by using a random distribution. An interesting point of extension is, can we use this idea for similar sets of numbers other than the primes?
@@ -441,48 +470,53 @@ From here, it is easy to see that
 Thus, there exists an infinite number of Ulam pairs.
 \hfill$\square$\medskip
 
-As you can see, this proof is very simple. Using the idea of Cramer's random model, we can give very quick answers to conjectures like our analagous Twin Prime Conjecture. In fact, going back to prime numbers, an assumption of a modified version of Cramer's model being true can be used to give affirmative answers to all four of Landau's problems \cite{b1} (which includes the Goldbach conjecture, Twin Prime conjecture, Legendre's conjecture, and the question of near-square primes).
+As you can see, this proof is very simple. Using the idea of Cramer's random model, we can give very quick answers to conjectures like our analagous twin prime conjecture. In fact, going back to prime numbers, an assumption of a modified version of Cramer's model being true can be used to give affirmative answers to all four of Landau's problems \cite{b1} (which includes the Goldbach conjecture, twin prime conjecture, Legendre's conjecture, and the question of near-square primes).
 % https://chance.dartmouth.edu/chance_news/for_chance_news/Riemann/cramer.pdf
 
 The key assumption in all cases is the accuracy of the model. Our assumption that the density of Ulam numbers converges to the constant 0.074 is only statistically shown, not rigorously proven like the prime number theorem. But, the main idea still stands. With any sequence of significant natural density, Cramer's model gives us a way to confidently guess its asymptotic statistics. Proving these results rigorously is far more difficult, but by random modeling, we can get the next best thing, which is a statistics backed guess. 
 
-\section{Improvements to Cramer's Original Model}
+\section{Conclusion}
+The main idea of this paper was to give a probabilistic
+model of the primes. We analyzed both discrete and
+continuous versions of the model, and also possible
+extensions of the model to other types of sequences. The
+discrete model appears to be a much better fit after
+some tweaking, but the continuous model still offers
+a lot potential, namely the ability to be more thoroughly
+analyzed using statistical methods. The continuous
+model offers a flavor of the idea that other fields of
+mathematics centered around continuous variables can be
+used to analyze discrete ones. Here, we focused mainly
+on applying the ideas of probability and statistics,
+but another example is the use of infinite series and
+analysis to study the primes, which form the basis of
+analytic number theory. We also
+briefly discussed the efficiency of the model compared
+to more deterministic methods of finding prime gaps, and
+the multithreading capability of the model, which will
+continue to scale as computer processors get more and
+more cores.
 
-Although Cramer's original model makes a fair attempt at estimating prime number distributions, it is flawed. Cramer's model can be thought of as a sequence of random variables, all with the independent probabilty $1 / \ln(n)$. This assumption of independence is what mainly makes proving long unsolved conjectures relatively trivial. But just thinking intuitively, independence between every one if these variables doesn't make sense when we consider what we are trying to model, the prime numbers. For example, if some number $x$ is chosen to be part of our random model, shouldn't the probability that $2x$, $3x$, $4x$,$\dots$ are part of the model then be reduced to 0? Such an adjustment might increase the accuracy of our model. However, then the question arises, where do we then ``redirect'' those probabilites? Its true that trying to make all such considerations returns us to the original complexity of the primes. So how can we improve the model's accuracy, while still maintaining its main assumptions. Let's look at some ideas for improvements. 
-
-% Should probably revise this section with more accurate improvements,
-% http://projecteuclid.org/euclid.facm/1229619660
-For any prime $p$, where $p > 2$, $p + 1$ is even and therefore cannot be prime. Currently in our model we do not consider parity, resulting in an arbitrary number of neighboring integer pairs. In fact with the original Cramer model, one can make a similar probabilistic argument to the one we made with Ulam sequence, to show that there exists an infinite number of prime pairs of the form $(p, p + 1)$. This is of course, a very bad prediction. Thus, how can we try to make Cramer's model more precise here. We can't just set the probability of every even number to 0 without other adjustments. This would essentially half the density backed by the Prime Number Theorem. One idea is to ``move" the probability of an even number $e$ being selected, to $e + 1$. So for each odd number (except for 3), its updated probability would be $1 / \ln(n - 1) + 1 / \ln(n) \approx 2 / \ln(n)$.
-
-After this adjustment, our model would look a little more like the actual primes. What is the modification we just did? We accounted for the actual prime number $p = 2$, and distributed probabilities only amongst numbers that are coprime to 2. This is a powerful idea, and we can extend it. Consider an additional parameter to our Cramer model $m$, ideally much smaller than $n$ (e.g. around $\log(n)$\cite{b1} works well). Let $p_1, \dots, p_k$ denote the set of actual primes smaller than or equal to $m$. Then instead of considering all natural numbers to be part of our model, we will consider only numbers coprime to the product $P = p_1p_2\cdots p_k$, i.e. not a multiple of any of the primes less or equal to $m$. How do we know the new probability that this number will be chosen? Recall that the Euler totient function $\phi(n)$ counts the positive integers up to n relatively prime to $n$. Then in our case, there will be approximately $\frac{\phi(P)}{P}$ fewer candidates that can be chosen for our model. Then this makes the chance a valid number coprime to $P$ is selected that much more likely. Thus, for some $x$ coprime to $P$, it has probability of $p(x) = \frac{\phi(P)}{Plog(n)}$ of being chosen. Essentially, the idea is that we maintain the core idea of random distribution, while incorporating some structure from a prefix of the prime number sequence. Let's see what an example distribution looks like with this modification.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth,keepaspectratio]{../images/Improvement.pdf}
-  \caption{Distribution of Cramer's model vs modified Cramer's model vs the actual prime numbers}
-\end{figure}
-
-This makes our model look much more accurate, especially for smaller intervals near the beginning of the prime distibution. We can actually extend this concept further to make our model more versatile by allowing our parameter $m$ dynamically increase with respect to $n$, albeit at a much slower pace. With this new modification of Cramer's model, we can achieve tighter bounds of estimation for prediction of statents like the Twin Prime Conjecture \cite{b1}. 
-
-\section{Primality Tests}
+\section{Appendix}
+\subsection{Primality Tests}
 One of the fundamental problems in math and cryptography is determining whether a large number is composite or prime. Since it is computationally difficult to manually calculate a sieve every time, there are many heuristics and methods to do it faster. A primality test is one of these heuristics/methods.
 
-To start with, there's the Sieve of Erastothenes, which we encountered in the course. This is a fairly brute-force way of determining primality. A smarter way is through the \textbf{Fermat primality test}.
+To start with, there's the Sieve of Erastothenes, which we encountered in the course. This is a fairly brute-force way of determining primality. A smarter way is through the \textit{Fermat primality test}.
 
 We studied Carmichael numbers in 2051. To redefine them, a Carmichael number is any composite number that satisfies the property, $\forall a \in \mathbb{N}$
 \[
     a^{n -1} \equiv 1 \mod n 
 \]
-Carmichael numbers are significant since they constitute one of the significant shortcomings of the Fermat primality test. The Fermat primality tests is one of the more primitive methods of this still. Of course, it is still used and in some cases, are run before more advanced algorithms like Miller-Rabin or Baillie PSW.
+Carmichael numbers are significant since they constitute one of the significant shortcomings of the Fermat primality test. The Fermat primality tests is one of the more primitive methods of this still. Of course, it is still used and in some cases, are run before more advanced algorithms like Miller-Rabin or Baillie-PSW.
 
-With this in mind, there are two different approaches here, we can try to find all the Carmichael numbers or we could generate more efficient primality tests. In this case, the primality tests are more efficient because probabilistically, they are likely to give better answers. One of the common ways to do this is with the \textbf{strong probable prime test}. The test takes in two numbers: A number $n$, the number we are checking for primality, and another number a, $2 < a < n - 1$ which is coprime to $n$. Additionally, let's rewrite $n - 1 = 2^s d$, where $s > 0$ and $d$ is an odd integer. A strong probable prime in base $a$ is defined as a number $n$ that satisfies 
+With this in mind, there are two different approaches here, we can try to find all the Carmichael numbers or we could generate more efficient primality tests. In this case, the primality tests are more efficient because probabilistically, they are likely to give better answers. One of the common ways to do this is with the \textit{strong probable prime test}. The test takes in two numbers: A number $n$, the number we are checking for primality, and another number a, $2 < a < n - 1$ which is coprime to $n$. Additionally, let's rewrite $n - 1 = 2^s d$, where $s > 0$ and $d$ is an odd integer. A strong probable prime in base $a$ is defined as a number $n$ that satisfies 
 \[
     a^d \equiv 1 \mod n
 \]
 \[
     a^{2^r d} \equiv -1 \mod n, 0 \leq r < s 
 \]
-Why does this work? Well, firstly, if n is an odd prime, then it passes because of Fermat's little theorem, or Fermat's primality test. $n$ passes in this case because $d = n - 1$. In fact, Fermat's primality test alone defines a weaker notion of a \textbf{probable prime}. A probable prime is any condition that is satisfied by most primes. \\
+Why does this work? Well, firstly, if n is an odd prime, then it passes because of Fermat's little theorem, or Fermat's primality test. $n$ passes in this case because $d = n - 1$. In fact, Fermat's primality test alone defines a weaker notion of a \textit{probable prime}. A probable prime is any condition that is satisfied by most primes. \\
 The other reason this works is because the only of roots of $1$ $\mod n$ are $1$ and $-1$. A simple proof of this:
 \[
     (x^2 - 1) \equiv 0 \mod n
@@ -493,35 +527,28 @@ The other reason this works is because the only of roots of $1$ $\mod n$ are $1$
 \[
     x = 1\,\,\, \text{or} -1 \mod n
 \]
-With this, we now have the tools to construct the \textbf{Miller-Rabin test}. The variable a tells us if the number in question is composite or not. Of course, there are still composite numbers that can fool the Miller-Rabin test. However, there isn't a set family of numbers for this and it changes depending on the value of a and n. If a tells us that n is a composite, we call it a witness. If it misinforms us, we call it a liar. If we pass all the tests for Miller-Rabin, we classify $n$ as a strongly probable prime. It has been proven that the number of liars is at most a \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{$1/4$} of the values of $a$. In reality the number of liars is of course much lower for many numbers but we use this number to model the worst case. That means, depending on the number of times we run Miller-Rabin, let's say $k$ times, our probability of n being composite is $0.25^k$. To give an example of what this means, if we were using the fermat primality test, we would have little idea of how accurate our results were and would most likely be more computationally expensive to run to get similarly accurate results.
+With this, we now have the tools to construct the \textit{Miller-Rabin test}. The variable a tells us if the number in question is composite or not. Of course, there are still composite numbers that can fool the Miller-Rabin test. However, there isn't a set family of numbers for this and it changes depending on the value of a and n. If a tells us that n is a composite, we call it a witness. If it misinforms us, we call it a liar. If we pass all the tests for Miller-Rabin, we classify $n$ as a strongly probable prime. It has been proven that the number of liars is at most a \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{$1/4$} of the values of $a$. In reality the number of liars is of course much lower for many numbers but we use this number to model the worst case. That means, depending on the number of times we run Miller-Rabin, let's say $k$ times, our probability of n being composite is $0.25^k$. To give an example of what this means, if we were using the fermat primality test, we would have little idea of how accurate our results were and would most likely be more computationally expensive to run to get similarly accurate results.
 
-This is pretty great! At the same time, this isn't that good of a way to \textbf{generate} primes. While the Miller-Rabin test is good at determining primes, sieves are still the best way of generating them. In fact, if you compare them, the sieve of Erastothenes, the most basic sieve significantly outperforms the Miller-Rabin in time. However, we're not quite done with Miller-Rabin yet. While Miller-Rabin can never be quite as good as a Sieve, we can still optimize it. The only part of Miller-Rabin that is not deterministic are the randomizations. We can make this deterministic. Through some \href{https://doi.org/10.1145%2F800116.803773}{Group Theory}, we know that we only need to iterate till the minimum of $n - 1$ and $2\ln{n}^2$ since if we assume the Generalized Riemann Hypothesis, we know that every group is generated by the smallest $\ln{n}^2$. However, in practice, this is usually much more expensive and the normal Miller-Rabin is used since it has extremely high confidence.
-\includegraphics[scale = 0.31]{Fermat-Sieve-MillerRand.pdf}
-With this graphic, you can see that in general, the Sieve is the worst way of finding whether a number is Prime, however, for certain numbers, the Fermat test can take extremely long, especially so for primes.
-\includegraphics[scale=0.31]{Fermat-MillerRand.pdf}
+This is pretty great! At the same time, this isn't that good of a way to \textit{generate} primes. While the Miller-Rabin test is good at determining primes, sieves are still the best way of generating them. In fact, if you compare them, the sieve of Erastothenes, the most basic sieve significantly outperforms the Miller-Rabin in time. However, we're not quite done with Miller-Rabin yet. While Miller-Rabin can never be quite as good as a Sieve, we can still optimize it. The only part of Miller-Rabin that is not deterministic are the randomizations. We can make this deterministic. Through some \href{https://doi.org/10.1145%2F800116.803773}{group theory}, we know that we only need to iterate till the minimum of $n - 1$ and $2\ln{n}^2$ since if we assume the generalized Riemann hypothesis, we know that every group is generated by the smallest $\ln{n}^2$. However, in practice, this is usually much more expensive and the normal Miller-Rabin is used since it has extremely high confidence.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{Fermat-Sieve-MillerRand.pdf}
+  \caption{Execution time vs. no. of numbers for various primality tests}
+\end{figure}
+
+With this graphic, you can see that in general, the sieve is the worst way of finding whether a number is prime, however, for certain numbers, the Fermat test can take extremely long, especially so for primes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{Fermat-MillerRand.pdf}
+  \caption{Execution time vs. no. of numbers for various primality tests}
+\end{figure}
+
 In this graph, you can see that for the most part, they take similar amounts of time with the Fermat test taking less time since it's a weaker check.
-% \[
 
-% \]
-\section{Extension/application/generalisation}
-% You should change this section's name to something relevant to
-% your project (e.g. "Applications of the RSA encryption
-% algorithm" or "Linear Diophantine equations in $n$ unknowns"
-\begin{itemize}
-    \item Connections from Cram\'er's conjecture to the Riemann hypothesis
-    \item Other ways to use Cram\'er's technique of random modeling
-\end{itemize}
-
-
-\section{Accuracy of the Model}
-% You should change this section's name to something relevant to
-% your project. This section allows you to reflect or conclude
-% the work you have done in your project and discuss future work
-% that could be done on the project (e.g. applications you tried
-% to make but couldn't find the time).
-
-Under heuristic testing with variations of Cram\'er's model, we should be able to support strong statements such as Bertrand's postulate and Legendre's conjecture. However, comparing with the actual primes, it should be clear that Cram\'er's model is inaccurate. Further work would involve the creation and tuning of other random models, to more closely emulate prime distribution.
-
+\subsection{Code}
+add code here
 
 \begin{thebibliography}{00}
     \bibitem{b1} \href{https://terrytao.wordpress.com/2015/01/04/254a-supplement-4-probabilistic-models-and-heuristics-for-the-primes-optional.}{Terence Tao, 254A, Supplement 4: Probabilistic models and heuristics for the primes (optional).}
