@@ -11,13 +11,16 @@
 \usepackage{pythonhighlight}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{verbatim}
+
+\pagestyle{plain}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\hfuzz=500pt
-\title{Patterns in Primes}
+% \hfuzz=500pt
+\title{A Random Model of the Primes}
 \author{\IEEEauthorblockN{1\textsuperscript{st} Yongyu Qiang}
 \IEEEauthorblockA{\textit{Georgia Institute of Technology}}
 \and
@@ -29,6 +32,7 @@
 }
 
 \maketitle
+\thispagestyle{plain}
 
 \begin{abstract}
 
@@ -61,7 +65,7 @@ $g \notin \{p_1, p_2, \dots, p_n\}$. To show this, suppose for contradiction tha
 $g \in \{p_1, p_2, \dots, p_n\}$. Then, since $p_1, p_2, \dots, p_n$ are all
 factors of $N$, we have $g | N$. $g | P$ and $g | N$, so
 we must also have $g | P - N$, i.e.\ $g | 1$. But $g > 1$ ($g$ is prime),
-so $g$ cannot possibly divide 1. Therefore,
+so $g$ cannot possibly divide $1$. Therefore,
 $g \notin \{p_1, p_2, \dots, p_n\}$, and we have found a new prime, as
 required. \hfill$\square$\medskip
 
@@ -84,7 +88,7 @@ only finitely many $n$ such that $p_{n+1} - p_n$ is odd.
 \hfill$\square$\medskip
 
 In fact, $n = 1$ yields the only odd prime gap, namely
-$(p_1, p_2) = (2, 3)$ with difference 1. On the other
+$(p_1, p_2) = (2, 3)$ with difference $1$. On the other
 hand, we have a much more promising observation for large
 prime gaps, namely that we can make them arbitrarily large.
 
@@ -176,16 +180,16 @@ large $n$ and fixed $k$, the probability that $x$ is prime is
 approximately $1 / \ln(n) \approx 1 / \ln(x)$. (As a side note, this
 density $\delta(n)$ is also the rationale behind an alternate
 approximation for $\pi(n)$ with the logarithmic integral
-$\text{Li}(n)$ as
-\[\pi(n) \approx \int_2^{n} \delta(x)\, dx = \int_2^{n} \frac{1}{\ln(x)}\, dx = \text{Li}(n),\]
+$\mathrm{Li}(n)$ as
+\[\pi(n) \approx \int_2^{n} \delta(x)\, dx = \int_2^{n} \frac{1}{\ln(x)}\, dx = \mathrm{Li}(n),\]
 which actually turns out to be a much better approximation to
 $\pi(n)$ than the traditional prime number theorem. In
 fact, if we assume the
-Riemann hypothesis, we have that the error of $\text{Li}(n)$ from
+Riemann hypothesis, we have that the error of $\mathrm{Li}(n)$ from
 $\pi(n)$ is bounded by $O(n^{1/2 + \epsilon})$ for any
 $\epsilon > 0$, meaning that roughly the first half of the
 digits of
-$\text{Li}(n)$ will be correct,
+$\mathrm{Li}(n)$ will be correct,
 but that is outside the scope of this paper.)
 
 Equipped with this prime density, we arrive at
@@ -195,7 +199,7 @@ the distribution of primes. From first inspection,
 the primes don't seem to be distributed according to
 any clear pattern; they seem to be rather randomly
 scattered across the number line. So why don't
-we treat the primes as exactly that, a random distribution?
+we treat the primes as exactly that, a \textit{random} distribution?
 In Cramer's original model, we assign each natural number
 $x > 2$ a probability
 \[p(x) = \frac{1}{\ln(x)}\]
@@ -225,7 +229,7 @@ plotted their average value.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{random-plot1.pdf}
-  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$.}
 \end{figure}
 
 Well\ldots that's not quite exactly what we hoped it would be,
@@ -280,7 +284,7 @@ generating our ``fake primes.''
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{random-plot-with-reals.pdf}
-  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$, (uniformly distributed model)}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$ (uniformly random).}
 \end{figure}
 
 Wow, that's even worse than what we had before, which is actually rather surprising.
@@ -292,20 +296,107 @@ from the prime number theorem is only an approximation. In fact, despite being
 asymptotically correct, it actually has a rather larger margin of error. We
 can immediately see this by plotting $\pi(n)$ and $n/\ln(n)$ on a graph.
 
-(note to self, explore above idea of using real numbers, and then
-go into trying out other probability distributions like a Gaussian, maybe)
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{pmt_comparison.pdf}
+  \caption{Number of primes $\le n$ vs. $n$.}
+\end{figure}
 
-\vspace{2mm}
-\hrule
-\vspace{2mm}
+We can now see that despite being asymptotically correct,
+$x/\ln(x)$ is actually an underestimation to
+$\pi(x)$, which explains the larger gaps our model
+predicted. We also see that $\mathrm{Li}(x)$ is a much
+better approximation to $\pi(x)$ than what the prime
+number theorem gives directly, almost exactly overlapping
+$\pi(x)$ from what we can see in the graph. Using
+$\mathrm{Li}(x)$ instead as our metric for how many
+numbers to sample, we recover most of the accuracy of our
+first model.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{random_model_li.pdf}
+  \caption{Maximum prime gaps, size of largest gap $\le n$ vs. $n$ (uniformly random using $\mathrm{Li}(n)$).}
+\end{figure}
 
-\section{Other Applications of Cramer's Model}
+\section{Applications}
+So, why might we care about a random model of the primes?
+One motivation is that random models are generally much
+easier to study than the actual primes themselves.
+Mathematicians have a lot of probability and statistical
+theory built up to analyze random variables, so as long
+as we can achieve a good enough random approximation, we
+can potentially analyze much more about how primes behave.
+
+A second, perhaps much more tangible, reason is
+computational efficiency. Finding large primes is
+generally a rather difficult task. For example, the naive
+trial division algorithm for finding primes requires
+$O(\sqrt{n})$ time for every number (without even
+accounting for the fact that basic operations like
+we take for granted as $O(1)$ like multiplication also
+start to slow down for very large integers),
+so we can imagine that
+using this method to find very large primes soon becomes
+too inefficient. A much better method is to
+use a sieve (the sieve of Erastosthenes, for example),
+which finds many primes at once by removing multiples of
+known primes. Sieve algorithms can bring time complexity
+down to near $O(n)$, which is indeed already pretty good. 
+
+But notice that this $n$ captures the value of the largest
+integer we want to test. That means as soon as we want
+to go from $n$ to $n + 1$, we have to run the entire
+$O(n)$ algorithm all over again just to test that one
+extra integer. This is where the power of the random
+model comes in. Assuming that random number generation
+is $O(1)$ (we'll assume this mainly for simplicity),
+the random model algorithm is $O(k \log(k))$ (the
+$\log(k)$ factor comes from sorting the random numbers,
+which could be an area for improvement) in the
+width the interval $k$. The random model will be much
+more efficient for intervals containing very large
+numbers but of reasonable width, as it doesn't need to
+waste time in the smaller numbers to sieve out primes
+correctly. This constraint is arguably pretty reasonable,
+as we tend to perform experiments in iterations anyway.
+That is, we can check the intervals $[n, 2n]$, $[2n, 3n]$,
+and then $[3n, 4n]$ separately without having to worry
+about duplicating work. But there's something even better.
+
+A big problem with randomness is that, well, it's random.
+Random data tends to contain a lot of noise that we don't
+want, and we typically try to reduce this effect as much
+as we can by conducting many trials. This may seem like
+a problem, as running many trials will surely slow the
+model down and add a huge hidden constant to our
+$O(k \log(k))$ time complexity. But there's an easy fix:
+what about the trials requires that they need to be run
+in sequence? The whole point is that we run independent
+trials to reduce random error, so we can simply
+run them \textit{in parallel}.
+
+Even the weakest among modern computers these days have
+several cores, so we can easily take advantage of
+\textit{multithreading}. We can simply run as many trial
+as we can in parallel, which will significantly reduce
+the impact of running many trials. In the Julia
+programming language, this is as simple as
+prefixing a for loop with the built-in
+\verb|@threads| macro. In our experience, running
+multithreaded on only 4 threads yielded over a
+two-times speedup, which is already very impressive
+for such little modification to our original code.
+
+\section{Extending Cramer's Model}
 
 The fundamental idea of Cramer's model is quite powerful. For any seemingly random set of numbers, we can emulate its density by using a random distribution. An interesting point of extension is, can we use this idea for similar sets of numbers other than the primes?
 
 We introduce a lesser known sequence of numbers known as the Ulam numbers, named after Stanislaw Ulam, who first popularized the sequence in 1964. Let $U_n$ denote the n-th Ulam number. The sequence starts with $U_1 = 1$, $U_2 = 2$. Then for $n > 2$, $U_n$ is the smallest integer greater than $U_{n - 1}$ that can be written as a unique sum of two distinct earlier terms. The first twenty Ulam numbers are:
-\[1, 2, 3, 4, 6, 8, 11, 13, 16, 18, 26, 28, 36, 38, 47, 48, 53, 57, 62, 69\]
+\begin{gather*}
+  1, 2, 3, 4, 6, 8, 11, 13, 16, 18, \\
+  26, 28, 36, 38, 47, 48, 53, 57, 62, 69.
+\end{gather*}
 
 % Psuedorandom similarity to the primes
 Similar to the prime numbers, the Ulam numbers are a deterministic set found by a clear procedure. Once again, there are no equations to describe where Ulam numbers will show up on the integer number line. Let's run a program to see the distribution of Ulam numbers across a larger sample. Finding Ulam numbers effiently is a difficult task in itself, but we can do it naively. 
@@ -319,7 +410,7 @@ Similar to the prime numbers, the Ulam numbers are a deterministic set found by 
 As can be seen by the distribution, Ulam numbers look quite linear. It has been shown that the first 3 million terms are close to the line $y = 13.51x$ \cite{b2}. Interestingly, Ulam himself conjectured that the natural density of Ulam numbers is 0. This means Ulam believed the distribution of Ulam numbers eventually converges to 0. But, as it turns out, calculations up to around a billion indicate that this is probably not the case. The observed density actually converges to around 0.074 \cite{b2}. 
 
 % Revise this:
-Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. For each natural number $x >= 1$, we define the independent probability that it is an ``fake" Ulam number to be \[p(x) = 0.074\]
+Using this density and the fact that Ulam numbers look to be quite linear, let's try to apply Cramer's model. For each natural number $x \ge 1$, we define the independent probability that it is an ``fake" Ulam number to be \[p(x) = 0.074\]
 
 An example run of this model gives us something that looks very similar to the line mentioned earlier.
 
@@ -384,135 +475,38 @@ After this adjustment, our model would look a little more like the actual primes
 %   \item How Cram\'er's model fares depending on the size and location of the interval, calculating asymptomatic statistics
 % \end{itemize}
 
-\section{Bertrand's Postulate}
-Another problem in number theory is finding the bounds in which you would find a prime number. Of these, one of the paramount significance is \textbf{Bertrand's Postulate}: \\
-Bertrand's postulate states that for an integer i $>$ 1, there is at least one prime number p
-\[
-    i \leq n \leq 2i 
-\]
-The proof for it is as follows:\\
-We'll start by proving Lemma 1:
-\[
-    \frac{4^n}{2n} \leq \binom{2n}{n}
-\]
-\[
-  4^n = (1 + 1)^{2n} = \sum_{k = 0}^{2n} \binom{2n}{k}
-\]
-Since, $\binom{2n}{0}$ is 1 and $\binom{2n}{2n}$ is 1, this is the same as
-\[
-    \equiv 2 + \sum_{k = 1}^{2n - 1} \binom{2n}{k} 
-\]
-Since the largest term in this summation is $\binom{2n}{n}$ (since for $\binom{n}{k}$, $k = n/2$ will give the largest term) and there are 2n terms, 
-\[
-     (2 + \sum_{k = 1}^{2n - 1} \binom{2n}{k}) \leq (2n * \binom{2n}{n})
-\]
-Therefore, 
-\[
-    \frac{4^n}{2n} \leq \binom{2n}{n}
-\]
-Let's now prove Lemma 2:\\
-For a given prime p, let's define r as the greatest number for which $p^r | \binom{2n}{n}$. Lemma 2 is as follows, for such an r, 
-\[
-    p^r \le 2n
-\]
-Firstly, we have to introduce Legendre's Formula:\\
-Legendre's Formula states that for any prime number p, and any integer n, let's define the function $v_p(n)$ as the exponent of the largest power of p that divides n. Let L = $\left\lfloor \log_{p}{n} \right\rfloor$\\
-Legendre's Formula is:
-\[
-    v_{p}(n!) = \sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
-\]
-$\binom{2n}{n}$ can also be written as $\frac{(2n)!}{n!*n!})$\\F
-Finding the largest exponent of p, r, that divides $\frac{(2n)!}{n!*n!}$ is the same as finding the largest exponent of p, r, that divides each component of $\frac{(2n)!}{n!*n!}$, i.e. $(2n)!$, $n!$
+\section{Primality Tests}
+One of the fundamental problems in math and cryptography is determining whether a large number is composite or prime. Since it is computationally difficult to manually calculate a sieve every time, there are many heuristics and methods to do it faster. A primality test is one of these heuristics/methods.
 
-In this case, L = $\left\lfloor \log_{p}{2n} \right\rfloor$\\ Writing this in terms Legendre's Formula, we get that:
+To start with, there's the Sieve of Erastothenes, which we encountered in the course. This is a fairly brute-force way of determining primality. A smarter way is through the \textbf{Fermat primality test}.
+
+We studied Carmichael numbers in 2051. To redefine them, a Carmichael number is any composite number that satisfies the property, $\forall a \in \mathbb{N}$
 \[
-    v_{p}(\binom{2n}{n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor} - 2\sum_{i = 1}^{L} {\left\lfloor \frac{n}{p^i} \right\rfloor}
+    a^{n -1} \equiv 1 \mod n 
 \]
-This is equivalent to:
+Carmichael numbers are significant since they constitute one of the significant shortcomings of the Fermat primality test. The Fermat primality tests is one of the more primitive methods of this still. Of course, it is still used and in some cases, are run before more advanced algorithms like Miller-Rabin or Baillie PSW.
+
+With this in mind, there are two different approaches here, we can try to find all the Carmichael numbers or we could generate more efficient primality tests. In this case, the primality tests are more efficient because probabilistically, they are likely to give better answers. One of the common ways to do this is with the \textbf{strong probable prime test}. The test takes in two numbers: A number $n$, the number we are checking for primality, and another number a, $2 < a < n - 1$ which is coprime to $n$. Additionally, let's rewrite $n - 1 = 2^s d$, where $s > 0$ and $d$ is an odd integer. A strong probable prime in base $a$ is defined as a number $n$ that satisfies 
 \[
-    v_{p}(\binom{2n}{n}) = \sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}
-\]
-Thinking intuitively, every term in $\sum_{i = 1}^{L} {\left\lfloor \frac{2n}{p^i} \right\rfloor - 2\left\lfloor \frac{n}{p^i} \right\rfloor}$ must either be 0 or 1.\\
-If ($\frac{2n}{p^i}$ mod 1) $\geq$ 0.5 then the term would be 1, otherwise the term is 0. Therefore, the maximum value of this function would be if all the terms were equal to 1. Since we are only dealing with positive numbers, and the exponent is a monotonic function if both numbers are positive numbers,
-\[
-    v_{p}(\binom{2n}{n}) = r \leq L
-\]
-\[
-    \equiv r <= \log_{p}{2n}
-\]
-Therefore, it follows that
-\[
-    p^r <= p^{\log_{p}{2n}} = 2n
-\]
-We are able to prove our initial Lemma 2, 
-\[
-    p^r <= 2n
-\]
-Now, we move on to proving Lemma 3:
-Let's place some bounds on p for the lemma we're going to prove. If 
-\[
-    \frac{2n}{3} < p \leq n, then R(n, p) = 0
+    a^d \equiv 1 \mod n
 \]
 \[
-    {\binom{2n}{n}} = \frac{(2n)!}{{n!}^2}
+    a^{2^r d} \equiv -1 \mod n, 0 \leq r < s 
 \]
-Therefore, there are 2 factors of p in the numerator, p and 2p\\
-In the denominator, there are 2 factors of p, each in n!\\
-The conditions mean that 3p is too large to be in the numerator\\
-Due to this, the factors of p in the numerator and denominator cancel out so the greatest power of p that divides this number is 1, i.e. $p^0$, giving R = 0\\
-With this, we prove Lemma 3\\
-\textbf{Moving on to Lemma 4:}\\
-Let's define the primorial function:
+Why does this work? Well, firstly, if n is an odd prime, then it passes because of Fermat's little theorem, or Fermat's primality test. $n$ passes in this case because $d = n - 1$. In fact, Fermat's primality test alone defines a weaker notion of a \textbf{probable prime}. A probable prime is any condition that is satisfied by most primes. \\
+The other reason this works is because the only of roots of $1$ $\mod n$ are $1$ and $-1$. A simple proof of this:
 \[
-    x\# = \Pi_{p \leq x} x
-\]
-I.e., x\# is the product of all primes less than or equal to x\\
-Lemma 4 states that for x $\geq$ 3,  x\# $\leq$ $4^x$\\
-We proceed by induction:\\
-This claim is easily verifiable for small odd numbers. Try one yourself!\\
-For even numbers, x\# = (x - 1)\# as for x $\geq$ 3, there are no even prime numbers\\
-Therefore, it is also bounded by x\# $\leq$ $4^x$\\
-Let's take a larger odd number, n = 2m + 1
-\[
-    \Pi_{p \leq n}p = \Pi_{p\leq m + 1} * \Pi_{m + 2 \leq p \leq 2m + 1}
-\]
-Since the Inductive Hypothesis is true for smaller odd numbers,
-\[
-    \Pi_{p\leq m + 1} = 4^{m + 1}
-\]
-Now, let's take a detour, let's look at a binomial expansion
-\[
-    (1 + 1)^{2m + 1} = \sum^{2m + 1}_{k = 0}{\binom{2m + 1}{k}}1^{2m + 1 - k}{1^{k}}
-\]
-Necessarily 
-\[
-    \Pi_{m + 2 \leq p \leq 2m + 1} \leq {\binom{2m + 1}{m}}
-\]
-Since you can notice that all the primes on the left will divide $\binom{2m+1}{m}$
-\[
-    \binom{2m + 1}{m} \leq \sum^{2m + 1}_{k = 0}{\binom{2m + 1}{k}}1^{2m + 1 - k}{1^{k}}
+    (x^2 - 1) \equiv 0 \mod n
 \]
 \[
-    \sum^{2m + 1}_{k = 0}{\binom{2m+1}{k}}1^{2m + 1 - k}{1^{k}} = 2^{2m + 1}
+    (x + 1)(x - 1) \equiv 0 \mod n
 \]
-Also, since 
 \[
-    {\binom{2m+1}{m}} = {\binom{2m+1}{m+1}}
+    x = 1\,\,\, \text{or} -1 \mod n
 \]
-We can divide our bound by 2 since those numbers will be repeated\\
-Therefore,
-\[
-    \Pi_{m + 2 \leq p \leq 2m + 1} \leq 2^{2m}
-\]
-Consequently,
-\[
-     \Pi_{p \leq n}p = 4^{m + 1} * 2^{2m}
-\]
-Which is equivalent to
-\[
-    \Pi_{p \leq n}p \leq 4^{n}
-\]
-Now, we are finally ready to prove Bertrand's Postulate:
+With this, we now have the tools to construct the \textbf{Miller-Rabin test}. The variable a tells us if the number in question is composite or not. Of course, there are still composite numbers that can fool the Miller-Rabin test. However, there isn't a set family of numbers for this and it changes depending on the value of a and n. If a tells us that n is a composite, we call it a witness. If it misinforms us, we call it a liar. If we pass all the tests for Miller-Rabin, we classify $n$ as a strongly probable prime. It has been proven that the number of liars is at most a \href{https://doi.org/10.1016%2F0022-314X%2880%2990084-0}{$1/4$} of the values of $a$. In reality the number of liars is of course much lower for many numbers but we use this number to model the worst case. That means, depending on the number of times we run Miller-Rabin, let's say $k$ times, our probability of n being composite is $0.25^k$. To give an example of what this means, if we were using the fermat primality test, we would have little idea of how accurate our results were and would most likely be more computationally expensive to run to get similarly accurate results.
+
+This is pretty great! At the same time, this isn't that good of a way to \textbf{generate} primes. While the Miller-Rabin test is good at determining primes, sieves are still the best way of generating them. In fact, if you compare them, the sieve of Erastothenes, the most basic sieve significantly outperforms the Miller-Rabin in time. However, we're not quite done with Miller-Rabin yet. While Miller-Rabin can never be quite as good as a Sieve, we can still optimize it. The only part of Miller-Rabin that is not deterministic are the randomizations. We can make this deterministic. Through some \href{https://doi.org/10.1145%2F800116.803773}{Group Theory}, we know that we only need to iterate till the minimum of $n - 1$ and $2\ln{n}^2$ since if we assume the Generalized Riemann Hypothesis, we know that every group is generated by the smallest $\ln{n}^2$. However, in practice, this is usually much more expensive and the normal Miller-Rabin is used since it has extremely high confidence.
 % \[
 
 % \]
@@ -525,14 +519,6 @@ Now, we are finally ready to prove Bertrand's Postulate:
     \item Other ways to use Cram\'er's technique of random modeling
 \end{itemize}
 
-
-\section{Preliminary Code and Illustrations}
-% Here should be some illustration of the concepts described above. Also place any code you used to generate the code (use the lstlisting package if this applies to you).
-
-Cram\'er's random model allows us to heuristically test properties of primes.
-In this example, we graphically compare the maximal prime gap of the model and the actual primes.
-\includegraphics[scale=0.5]{graph.png}
-% \inputpython{../models/original_model.py}{6}{37}
 
 \section{Accuracy of the Model}
 % You should change this section's name to something relevant to
