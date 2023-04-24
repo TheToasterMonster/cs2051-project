@@ -1,66 +1,47 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import random
+import sympy
+from sympy.ntheory.factor_ import totient
+import math
+import operator
+import functools
 
-# Precalculates sieve for all numbers <= n
-def sieve(n):
-    prime = [True for i in range(n + 1)]
-    i = 2
-    while i * i <= n:
-        if prime[i]:
-            for j in range(i * i, n + 1, i):
-                prime[j] = False
-        i += 1
-    last_prime = -1
-    gaps = []
-    for i in range(n + 1):
-        if prime[i]:
-            if last_prime != -1:
-                if len(gaps) == 0:
-                    gaps.append(i - last_prime)
-                else:
-                    gaps.append(max(gaps[-1], i - last_prime))
-            last_prime = i
-    return gaps
-
-def original_model(n):
+def original_model(n, l):
     # Assume 2 is in the model because 1 / ln(2) > 1
-    gaps = []
-    last_prime = 2
-    for i in range(3, n + 1):
+    primes = [2]
+    i = 3
+    while (len(primes) < l):
         if random.random() <= 1 / np.log(i):
-            if len(gaps) == 0:
-                gaps.append(i - last_prime)
-            else:
-                gaps.append(max(gaps[-1], i - last_prime))
-            last_prime = i
-    return gaps
+            primes.append(i)
+        i += 1
+    return primes
 
-def improved_model(n):
-    gaps = []
-    last_prime = 2
-    for i in range(3, n + 1, 2):
-        if random.random() <= 2 / np.log(i):
-            if len(gaps) == 0:
-                gaps.append(i - last_prime)
-            else:
-                gaps.append(max(gaps[-1], i - last_prime))
-            last_prime = i
-    return gaps
+def improved_model(p, l, phi):
+    # Assume 2 is in the model because 1 / ln(2) > 1
+    primes = [2]
+    i = 3
+    while (len(primes) < l):
+        if math.gcd(i, p) == 1 and random.random() <= p / (phi * np.log(i)):
+            primes.append(i)
+        i += 1
+    return primes
 
 def main():
-    upper_bound = 10000000
-    real = sieve(upper_bound)
-    original = original_model(upper_bound)
-    improved = improved_model(upper_bound)
+    upper_bound = 1000
+    real = list(sympy.primerange(upper_bound))
+    original = original_model(upper_bound, len(real))
+    k = math.floor(np.log(len(real)))
+    p = functools.reduce(operator.mul, real[0:k], 1)
+    phi = sympy.totient(p)
+    improved = improved_model(p, len(real), phi)
     plt.plot(np.array(real), label = "P")
     plt.plot(np.array(original), label = "Original")
     plt.plot(np.array(improved), label = "Improved")
 
     plt.xlabel('x')
-    plt.ylabel('Maximal gap up until g_x')
-    plt.title('Maximal gaps of actual primes vs Cramer\'s model')
     plt.legend()
+    plt.savefig("../images/Improvement.pdf", format="pdf", bbox_inches="tight")
     plt.show()
 
 if __name__ == "__main__":

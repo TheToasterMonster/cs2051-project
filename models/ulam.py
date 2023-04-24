@@ -24,6 +24,7 @@ def sieve(n):
     return gaps
 
 
+
 def ulam(n):
     if n <= 2:
         return n
@@ -48,7 +49,7 @@ def ulam(n):
 
 def main():
     real = []
-    for i in range(10000):
+    for i in range(600):
         real.append(ulam(i))
     line = []
     sum = 0
@@ -61,8 +62,8 @@ def main():
     # plt.plot(np.array(fake), label = "P'")
     plt.xlabel('x')
     plt.ylabel('U_x')
-    plt.title('Distribution of the Ulam numbers')
     plt.legend()
+    plt.savefig("../images/Ulam_distribution.pdf", format="pdf", bbox_inches="tight")
     plt.show()
 
 if __name__ == "__main__":
