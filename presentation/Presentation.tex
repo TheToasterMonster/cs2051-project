@@ -63,6 +63,32 @@
     \item We can consider disjoint intervals completely independently (not true of traditional sieve methods)
   \end{itemize}
 \end{frame}
+\begin{frame}{Improvement to the Original Model}
+  \begin{itemize}
+      \item Something obvious, the only even prime should be 2
+      \item However, Cramer's original scheme gives all natural numbers $x > 2$ chance $\frac{1}{\ln{x}}$
+      \item Idea: For every even number $e$, give its chance to $e + 1$
+      \item Even number, $p(x) = 0$, odd number, $p(x) \approx \frac{2}{\ln{x}}$
+  \end{itemize}
+\end{frame}
+\begin{frame}{Improvement to the Original Model}
+    \begin{itemize}
+        \item Extrapolate idea: Instead of just 2, consider a small prefix of primes
+        \item Only consider numbers coprime to those primes to be a part of the model
+        \item Maintains randomness, but incorporates some structure from that prefix
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \includegraphics[width=\textwidth]{../images/Improvement.pdf}
+\end{frame}
+\begin{frame}{Extension of Cramer's Model}
+    \begin{itemize}
+        \item Cramer's model can be applied to other seemingly random sequences with known density
+        \item e.g. Ulam numbers
+        \item $U(1) = 1, U(2) = 2$
+        \item $U(x)$ is least number which is a unique sum of two distinct earlier terms
+    \end{itemize}
+\end{frame}
 \begin{frame}{Primes Themselves}
 \begin{itemize}
     \item Fermat's Little Theorem, $a^{n - 1} \equiv 1 \mod n \; \forall a$ coprime to n 
@@ -104,7 +130,7 @@
         \item The $\textbf{The Baillie-PSW}$ primality test is one that is possibly deterministic
         \item It is a mix between a Miller-Rabin test with a = 2(chosen arbitrarily) and another class of numbers called Lucas primes
         \item There is no known crossover between the two sets of numbers upto $2^{64}$
-        \item \includegraphics[width=\textwidth]{PepeSweat.pdf}
+        % \item \includegraphics[width=\textwidth]{PepeSweat.pdf}
     \end{itemize}
 \end{frame}
 \end{document}
