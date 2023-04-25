@@ -63,5 +63,48 @@
     \item We can consider disjoint intervals completely independently (not true of traditional sieve methods)
   \end{itemize}
 \end{frame}
-
+\begin{frame}{Primes Themselves}
+\begin{itemize}
+    \item Fermat's Little Theorem, $a^{n - 1} \equiv 1 \mod n \; \forall a$ coprime to n 
+    \item But, how accurate is this?
+    \item Rewrite $n - 1 = 2^s d$
+    \item $a^d \equiv 1 \pmod{n}$
+    \item $a^{2^r d} \equiv -1 \pmod{n}, \quad 0 \leq r < s.$
+\end{itemize}
+\end{frame}
+\begin{frame}{Miller Rabin}
+\begin{itemize}
+    \item No non-prime, odd, number exists that can pass for every a!!
+    \item If the a chosen reveals that n is composite, it is called a witness. If it turns out it told us that a composite was prime, we call it a liar
+    \item We don't know any way to deterministically find witnesses for a number
+    \item So... Randomize!!
+    \item It is shown that for 2 $<$ a $<$ n - 1, there are at most (1/4) * n liars
+\end{itemize}
+\end{frame}
+\begin{frame}{Miller-Rabin}
+    \begin{itemize}
+        \item Doing k iterations of the algorithm, we have a confidence of $0.25^{k}$ that the number is prime
+        \item In reality, the number of liars is much higher for most numbers
+        \item This produces something known as an 'industry-grade' prime
+        \item The running time is incredibly fast. The next slide will show Miller-Rabin in comparison with other algorithms
+    \end{itemize}
+\end{frame}
+\begin{frame}{Running Time}
+    \begin{itemize}
+        \item \includegraphics[width=\textwidth]{Fermat-Sieve-MillerRand.pdf}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Frame Title}
+    \begin{itemize}
+        \item \includegraphics[width=\textwidth]{Fermat-MillerRand.pdf}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Other Primality tests}
+    \begin{itemize}
+        \item The $\textbf{The Baillie-PSW}$ primality test is one that is possibly deterministic
+        \item It is a mix between a Miller-Rabin test with a = 2(chosen arbitrarily) and another class of numbers called Lucas primes
+        \item There is no known crossover between the two sets of numbers upto $2^{64}$
+        \item \includegraphics[width=\textwidth]{PepeSweat.pdf}
+    \end{itemize}
+\end{frame}
 \end{document}
